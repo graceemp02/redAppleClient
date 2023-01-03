@@ -1,13 +1,95 @@
+/** @format */
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+* .loginContainer {
+  background-color: #f0f8ff;
+  min-height: 100vh;
+  min-width: 100vw;
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+}
+@media (min-aspect-ratio: 8/5) {
+  .logo {
+    width: 30vh;
+  }
+}
+@media (max-aspect-ratio: 3/2) {
+  .logo {
+    width: 40vh;
+  }
+}
+.machineBox {
+  border-style: solid;
+  border-radius: 1em;
+  border-color: grey;
+  margin: 1em;
+  width: 13em;
+}
+.machine {
+  font-size: 12em;
+  text-decoration: none;
+  border-bottom: solid;
+  border-color: grey;
+  line-height: 0.9;
+  text-align: center;
+  font-family: Arial Black, Alfa Slab One, cursive;
+  text-shadow: 1px 10px 10px rgb(0 0 0 / 50%);
+}
+.machineName {
+  text-align: center;
+  margin: 10px;
+  letter-spacing: 2px;
+  font-size: 1.6rem;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.colorA {
+  color: #19c424;
+}
+.colorB {
+  color: #ffe435;
+}
+.colorC {
+  color: #ffa100;
+}
+.colorD {
+  color: #ef8625;
+}
+.colorE {
+  color: #ff0000;
+}
+.colorF {
+  color: #ff0000;
+}
+.gray {
+  color: gray;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+.iconsDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.centerIcon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.css-d9c359-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {
+  background-color: #1976d2 !important;
+}
+#cancon {
+  width: 100%;
+  height: 44vh;
 }
