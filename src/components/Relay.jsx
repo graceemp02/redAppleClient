@@ -8,31 +8,17 @@ const circleStyle = {
   height: '2.7vh',
   ml: '12px',
 };
-const disableButton = {
-  bgcolor: '#2196f3 !important',
-  color: '#fff !important',
-  opacity: '0.5',
-  height: '3vh',
-  // minWidth: '3vw',
-  maxWidth: '28px',
-  fontSize: '1.5vh',
-};
+
 const shortButton = {
-  height: '3vh',
-  // minWidth: '3vw',
-  maxWidth: '28px',
-  fontSize: '1.5vh',
+  width: '5vh',
+  padding: ' .5vh 3vh',
+  fontSize: '1.2vh',
 };
-const Relay = ({ id, lable, btn, isDisable, ind, onBtnClick }) => {
+const Relay = ({ id, lable, btn, ind, onBtnClick }) => {
   return (
     <ListItem sx={{ padding: '0rem 1rem', flex: 1 }} divider>
       <ListItemText sx={{ m: 0, fontSize: '2vh !important' }} primary={lable} />
-      <Button
-        onClick={() => onBtnClick(id)}
-        disabled={isDisable && true}
-        variant='contained'
-        size='small'
-        sx={isDisable ? disableButton : shortButton}>
+      <Button onClick={() => onBtnClick(id)} variant='contained' size='large' sx={shortButton}>
         {btn === '1' ? 'STOP' : 'START'}
       </Button>
       <CircleIcon sx={circleStyle} htmlColor={ind === '1' ? '#00c853' : 'gray'} />

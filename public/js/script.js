@@ -1,7 +1,10 @@
 /** @format */
-
+// visit line 45 to change time of delay
 // setInterval(init, 10000);
-window.onload = init;
+
+// window.onload = init;
+window.onload = setTimeout(init, 500);
+
 console.ward = function () {}; // what warnings?
 
 function init() {
@@ -15,8 +18,8 @@ function init() {
   root.renderer.setPixelRatio(window.devicePixelRatio || 1);
   root.camera.position.set(0, 0, 60);
 
-  var width = 150;
-  var height = 90;
+  var width = 200;
+  var height = 100;
 
   var slide = new Slide(width, height, 'out');
   var l1 = new THREE.ImageLoader();
@@ -42,8 +45,8 @@ function init() {
   });
 
   root.scene.add(slide2);
-
-  var tl = new TimelineMax({ repeat: -1, repeatDelay: 15.0, yoyo: true });
+  // animation delay time
+  var tl = new TimelineMax({ repeat: -1, repeatDelay: 3.0, yoyo: true });
 
   tl.add(slide.transition(), 0);
   tl.add(slide2.transition(), 0);
@@ -281,11 +284,11 @@ function THREERoot(params) {
   });
   this.renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
   document.getElementById('three-container').appendChild(this.renderer.domElement);
-
+  const outer = document.querySelector('#outer');
   this.camera = new THREE.PerspectiveCamera(
     params.fov,
-    window.innerWidth / 3 / ((window.innerHeight * 34) / 100),
-
+    // window.innerWidth / 3 / ((window.innerHeight * 44) / 100),
+    outer.offsetWidth / outer.offsetHeight,
     params.zNear,
     params.zfar
   );
@@ -317,11 +320,13 @@ THREERoot.prototype = {
     this.renderer.render(this.scene, this.camera);
   },
   resize: function () {
-    const elementcon = document.getElementById('cancon');
-    this.camera.aspect = window.innerWidth / 3 / ((window.innerHeight * 44) / 100);
+    const outer = document.getElementById('outer');
+    // this.camera.aspect = window.innerWidth / 3 / ((window.innerHeight * 44) / 100);
+    this.camera.aspect = outer.offsetWidth / outer.offsetHeight;
 
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(window.innerWidth / 3, (window.innerHeight * 44) / 100);
+    this.renderer.setSize(outer.offsetWidth, outer.offsetHeight);
+    // this.renderer.setSize('700px', '350px');
   },
 };
 

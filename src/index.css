@@ -89,7 +89,13 @@ body {
 .css-d9c359-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {
   background-color: #1976d2 !important;
 }
-#cancon {
-  width: 100%;
-  height: 44vh;
+
+#outer {
+  height: 40vh;
+  aspect-ratio: 4/3;
+  width: 90%;
+  margin: 0 auto;
+}
+#outer canvas {
+  margin: 0;
 }

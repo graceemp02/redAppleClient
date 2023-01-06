@@ -7,16 +7,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import ListItemText from '@mui/material/ListItemText';
 import { styled } from '@mui/material/styles';
 
-import {
-  Button,
-  createTheme,
-  Divider,
-  ListItem,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from '@mui/material';
-import SubTxt from '../components/SubTxt';
+import { Button, ListItem, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import Relay from '../components/Relay';
 import { useContext, useEffect, useState } from 'react';
 import Logo from '../assests/logo.png';
@@ -24,8 +15,7 @@ import Logo from '../assests/logo.png';
 import axios from 'axios';
 import { useRef } from 'react';
 import { UserContext } from '../context/UserContext';
-// let theme = createTheme();
-// console.log(theme.palette.action.active);
+
 const circleStyle = {
   width: '2.7vh',
   height: '2.7vh',
@@ -38,9 +28,9 @@ const hdnCircle = {
   visibility: 'hidden',
 };
 const shortButton = {
-  height: '3vh',
-  minWidth: '3vw',
-  fontSize: '1.5vh',
+  width: '5vh',
+  padding: ' .5vh 3vh',
+  fontSize: '1.2vh',
 };
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   '& .MuiToggleButtonGroup-grouped': {
@@ -53,11 +43,14 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     '&:not(:first-of-type)': {
       // borderRadius: theme.shape.borderRadius,
       borderRadius: '15px',
+      fontSize: '1vh',
       textTransform: 'capitalize',
     },
     '&:first-of-type': {
       // borderRadius: theme.shape.borderRadius,
       borderRadius: '15px',
+      fontSize: '1vh',
+
       textTransform: 'capitalize',
     },
   },
@@ -142,25 +135,29 @@ const Control = () => {
     setAlignment(newAlignment);
   };
 
+  const mainStyle = {
+    flex: 1,
+    width: { xs: '95%', sm: '70%' },
+    minWidth: { xs: '95%', sm: '900px' },
+    display: 'flex',
+    borderRadius: '1vh',
+    backgroundColor: 'white',
+    // overflow: 'hidden',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    padding: '.75em',
+  };
   return (
     <div
       style={{
+        padding: '1vh 5vh',
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
-        width: '40vw',
-        margin: '0 auto',
+        minHeight: '98vh',
       }}>
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          width: '40%',
-          minWidth: '400px',
-          height: '100%',
-        }}>
+      <div style={mainStyle}>
         <Typography
           align='left'
           fontSize={'auto'}
@@ -173,13 +170,14 @@ const Control = () => {
             color: 'black',
             mb: '.1vh',
             fontSize: '3.3vh !important',
+            height: '6.5vh',
           }}>
           SYSTEM OVERRIDE
         </Typography>
 
         <Paper
           sx={{
-            flex: 5,
+            height: '80vh',
             width: '100%',
             bgcolor: 'background.paper',
             borderRadius: '1vh',
@@ -197,26 +195,39 @@ const Control = () => {
             }}>
             <Relay
               id='1'
-              lable='Override 1'
+              lable={
+                <Typography variant='h4' fontWeight='bold'>
+                  Override 1
+                </Typography>
+              }
               btn={res.ovr1}
-              isDisable={false}
               ind={res.ovr1_ind}
               onBtnClick={handleRelayBtnClick}
             />
             <Relay
               id='2'
-              lable='Override 2'
+              lable={
+                <Typography variant='h4' fontWeight='bold'>
+                  Override 2
+                </Typography>
+              }
               btn={res.ovr2}
-              isDisable={false}
               ind={res.ovr2_ind}
               onBtnClick={handleRelayBtnClick}
             />
 
             <ListItem sx={{ padding: '0.1rem 1rem', flex: 1 }} divider>
-              <ListItemText sx={{ m: 0, fontSize: '2vh !important' }} primary={'System RST'} />
+              <ListItemText
+                sx={{ m: 0, fontSize: '2vh !important' }}
+                primary={
+                  <Typography variant='h4' fontWeight='bold'>
+                    System RST
+                  </Typography>
+                }
+              />
               <Button
                 variant='contained'
-                size='small'
+                size='large'
                 onClick={() => handleRelayBtnClick('3')}
                 sx={shortButton}>
                 {res.rst === '1' ? 'Release' : 'Press'}
@@ -224,9 +235,16 @@ const Control = () => {
               <CircleIcon sx={hdnCircle} />
             </ListItem>
             <ListItem sx={{ padding: '0.1rem 1rem', flex: 1 }} divider>
-              <ListItemText sx={{ m: 0, fontSize: '2vh !important' }} primary={'Select Mode'} />
+              <ListItemText
+                sx={{ m: 0, fontSize: '2vh !important' }}
+                primary={
+                  <Typography variant='h4' fontWeight='bold'>
+                    Select Mode
+                  </Typography>
+                }
+              />
               <StyledToggleButtonGroup
-                sx={{ bgcolor: 'gray' }}
+                sx={{ bgcolor: 'gray', height: '70px' }}
                 color='primary'
                 value={alignment}
                 exclusive
@@ -259,34 +277,64 @@ const Control = () => {
                 <ListItem sx={{ padding: '0.2rem 1rem', flex: 1 }} divider>
                   <ListItemText
                     sx={{ m: 0, fontSize: '2vh !important' }}
-                    primary={'Shift Start Time'}
+                    primary={
+                      <Typography variant='h4' fontWeight='bold'>
+                        Shift Start Time
+                      </Typography>
+                    }
                   />
                   <input
                     ref={startRef}
                     placeholder={res.start}
-                    style={{ width: '15%', textAlign: 'center', borderColor: 'whitesmoke' }}
+                    style={{
+                      height: '2vh',
+                      fontSize: '1.7vh',
+                      width: '15%',
+                      textAlign: 'center',
+                      borderColor: 'whitesmoke',
+                    }}
                   />
                 </ListItem>
                 <ListItem sx={{ padding: '0.2rem 1rem', flex: 1 }} divider>
                   <ListItemText
                     sx={{ m: 0, fontSize: '2vh !important' }}
-                    primary={'Shift End Time'}
+                    primary={
+                      <Typography variant='h4' fontWeight='bold'>
+                        Shift End Time
+                      </Typography>
+                    }
                   />
                   <input
                     placeholder={res.end}
                     ref={endRef}
-                    style={{ width: '15%', textAlign: 'center', borderColor: 'whitesmoke' }}
+                    style={{
+                      height: '2vh',
+                      fontSize: '1.7vh',
+                      width: '15%',
+                      textAlign: 'center',
+                      borderColor: 'whitesmoke',
+                    }}
                   />
                 </ListItem>
                 <ListItem sx={{ padding: '0.2rem 1rem', flex: 1 }} divider>
                   <ListItemText
                     sx={{ m: 0, fontSize: '2vh !important' }}
-                    primary={'System Override Time'}
+                    primary={
+                      <Typography variant='h4' fontWeight='bold'>
+                        System Override Time
+                      </Typography>
+                    }
                   />
                   <input
                     placeholder={res.sot}
                     ref={sotRef}
-                    style={{ width: '15%', textAlign: 'center', borderColor: 'whitesmoke' }}
+                    style={{
+                      height: '2vh',
+                      fontSize: '1.7vh',
+                      width: '15%',
+                      textAlign: 'center',
+                      borderColor: 'whitesmoke',
+                    }}
                   />
                 </ListItem>
               </div>
@@ -305,7 +353,11 @@ const Control = () => {
               <ListItem sx={{ padding: '0 1rem', flex: 1 }} divider>
                 <ListItemText
                   sx={{ m: 0, fontSize: '2vh !important' }}
-                  primary={'System Violated'}
+                  primary={
+                    <Typography variant='h4' fontWeight='bold'>
+                      System Violated
+                    </Typography>
+                  }
                 />
 
                 <CircleIcon htmlColor={res.sv === '1' ? 'red' : 'gray'} sx={circleStyle} />
@@ -313,15 +365,24 @@ const Control = () => {
               <ListItem sx={{ padding: '0 1rem', flex: 1 }} divider>
                 <ListItemText
                   sx={{ m: 0, fontSize: '2vh !important' }}
-                  primary={<span>Replace Filter</span>}
+                  primary={
+                    <Typography variant='h4' fontWeight='bold'>
+                      Replace Filter
+                    </Typography>
+                  }
                 />
                 <CircleIcon htmlColor={res.filter === '1' ? 'red' : 'gray'} sx={circleStyle} />
               </ListItem>
               <ListItem sx={{ padding: '0 1rem', flex: 1 }} divider>
-                <ListItemText sx={{ m: 0, fontSize: '2vh !important' }} primary={'HVAC Status'} />
-                <Typography
-                  variant='body1'
-                  sx={{ border: '1px solid black', p: 1, borderRadius: 1 }}>
+                <ListItemText
+                  sx={{ m: 0, fontSize: '2vh !important' }}
+                  primary={
+                    <Typography variant='h4' fontWeight='bold'>
+                      HVAC Status
+                    </Typography>
+                  }
+                />
+                <Typography variant='h4' sx={{ border: '1px solid black', p: 1, borderRadius: 3 }}>
                   {res.oc}
                 </Typography>
               </ListItem>
@@ -330,28 +391,22 @@ const Control = () => {
         </Paper>
         <div
           style={{
-            flex: 1,
             display: 'flex',
             justifyContent: 'space-between',
-            height: ' 100px',
+            height: ' 10vh',
             alignItems: 'center',
           }}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <img src={Logo} alt={'Logo'} width='60px' />{' '}
+          <div style={{ display: 'flex', alignItems: 'center', width: '16%' }}>
+            <img src={Logo} alt={'Logo'} width='100%' />{' '}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography fontWeight={'bold'} color={'black'} fontSize='1.3em' variant={'body1'}>
+            <Typography fontWeight={'bold'} color={'black'} variant={'h3'}>
               {location.state.machine}
             </Typography>
-            <Typography
-              fontWeight={'bold'}
-              color={'black'}
-              fontSize='1.3em'
-              mt={0.5}
-              variant={'body1'}>
+            <Typography fontWeight={'bold'} color={'black'} mt={0.5} variant={'h3'}>
               {location.state.user}
             </Typography>
-            <Typography color={'black'} variant={'body1'} fontSize='.9em' mt={0.5}>
+            <Typography color={'black'} variant={'h4'} mt={0.5}>
               Next Inspection Date: {location.state.date}
             </Typography>
           </div>

@@ -4,16 +4,20 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Typography, Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import Logo from '../assests/logo.png';
 import CircleIcon from '@mui/icons-material/Circle';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { UserContext } from '../context/UserContext';
 import { A, B, C, D, E, F, Ad } from '../assests';
-
 const circleStyle = {
   width: '2.7vh',
   height: '2.7vh',
 };
 const Dashboard = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isDesk = useMediaQuery(theme.breakpoints.up('lg'));
   const navigate = useNavigate();
   const [res, setRes] = useState({});
   const [display, setDisplay] = useState('flex');
@@ -33,6 +37,12 @@ const Dashboard = () => {
       })
       .catch(error => console.log(error));
   };
+  useEffect(() => {
+    fetchDta();
+    const node = document.createElement('script');
+    node.src = 'js/script.js';
+    document.body.appendChild(node);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,58 +57,54 @@ const Dashboard = () => {
   };
   let img = A;
   if (res.letter === 'A') {
-    console.log('Image : ' + 'A');
     img = A;
   } else if (res.letter === 'B') {
-    console.log('Image : ' + 'B');
     img = B;
   } else if (res.letter === 'C') {
-    console.log('Image : ' + 'C');
     img = C;
   } else if (res.letter === 'D') {
-    console.log('Image : ' + 'D');
     img = D;
   } else if (res.letter === 'E') {
-    console.log('Image : ' + 'E');
     img = E;
   } else {
-    console.log('Image : ' + 'F');
     img = F;
   }
-
+  const mainStyle = {
+    flex: 1,
+    width: { xs: '95%', sm: '70%' },
+    minWidth: { xs: '95%', sm: '900px' },
+    display: 'flex',
+    borderRadius: '1vh',
+    backgroundColor: 'white',
+    // overflow: 'hidden',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: '.75em',
+  };
   return (
     <div
       style={{
+        padding: '1vh 5vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: '100vh',
-        overflow: 'hidden',
+        minHeight: '98vh',
+        // overflow: 'hidden',
       }}>
-      <div
-        style={{
-          flex: 1,
-          width: '40%',
-          minWidth: '400px',
-          display: 'flex',
-          borderRadius: '1vh',
-          backgroundColor: 'white',
-          overflow: 'hidden',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: '.75em',
-        }}>
-        <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+      <div style={mainStyle}>
+        <div style={{ display: 'flex', width: '95% !important', justifyContent: 'space-between' }}>
           <div>
-            <Typography variant='body1' sx={{ fontWeight: 'bold', color: 'black' }}>
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
               AQI
             </Typography>
-            <div>{res.aqi}%</div>
+            <Typography variant='h4' sx={{ textAlign: 'center' }}>
+              {res.aqi}%
+            </Typography>
           </div>
           <div className='centerIcon'>
-            <Typography variant='body1' sx={{ fontWeight: 'bold', color: 'black' }}>
-              FAN
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
+              Fan
             </Typography>
             <div className='iconsDiv'>
               <CircleIcon sx={circleStyle} htmlColor={res.fan1 > 0 ? '#00c853' : 'gray'} />
@@ -106,7 +112,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className='centerIcon'>
-            <Typography variant='body1' sx={{ fontWeight: 'bold', color: 'black' }}>
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
               UCV
             </Typography>
             <div className='iconsDiv'>
@@ -116,7 +122,7 @@ const Dashboard = () => {
           </div>
           <div className='centerIcon'>
             {' '}
-            <Typography variant='body1' sx={{ fontWeight: 'bold', color: 'black' }}>
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
               OSA
             </Typography>
             <div className='iconsDiv'>
@@ -126,7 +132,7 @@ const Dashboard = () => {
           </div>
           <div className='centerIcon'>
             {' '}
-            <Typography variant='body1' sx={{ fontWeight: 'bold', color: 'black' }}>
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
               C/H
             </Typography>
             <div className='iconsDiv'>
@@ -135,28 +141,37 @@ const Dashboard = () => {
             </div>{' '}
           </div>
           <div>
-            <Typography variant='body1' sx={{ fontWeight: 'bold', color: 'black' }}>
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
               Temp
             </Typography>
-            <div>{res.temp}°F</div>{' '}
+            <Typography sx={{ textAlign: 'center' }} variant='h4'>
+              {res.temp}°F
+            </Typography>{' '}
           </div>
         </div>
         <div>
-          <div id='three-container' style={{ display: 'flex', justifyContent: 'center' }}>
-            <img id='img1' src={img} style={{ display: 'none' }} />
-            <img id='img2' src={Ad} style={{ display: 'none' }} />
+          <div id='outer'>
+            <div id='three-container' style={{ display: 'flex', justifyContent: 'center' }}>
+              <img id='img1' alt='AQI Level' src={img} style={{ display: 'none' }} />
+              <img id='img2' alt='Ad Display' src={Ad} style={{ display: 'none' }} />
+            </div>
           </div>
         </div>
         <div>
           <Typography
             color={'black'}
-            variant={'body1'}
             lineHeight={1}
-            sx={{ fontSize: '2.8vh', mb: '10px', textAlign: 'center' }}>
+            sx={{ fontSize: '3vh', mb: '10px', textAlign: 'center', fontWeight: 'bold' }}>
             HEALTHY INDOOR AIR QUALITY
           </Typography>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '90%',
+            margin: '0 auto',
+          }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -173,7 +188,7 @@ const Dashboard = () => {
                 <CircleIcon sx={circleStyle} className={res.humHdnInd4 ? res.humHdnInd4 : 'gray'} />
               </Box>
             </div>
-            <Typography variant='body2'>Humidity</Typography>
+            <Typography variant='h4'>Humidity</Typography>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <CircleIcon sx={circleStyle} className={res.voc1 ? res.voc1 : 'gray'} />
@@ -181,7 +196,7 @@ const Dashboard = () => {
             <CircleIcon sx={circleStyle} className={res.voc3 ? res.voc3 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.voc4 ? res.voc4 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.voc5 ? res.voc5 : 'gray'} />
-            <Typography variant='body2'>VOC</Typography>
+            <Typography variant='h4'>VOC</Typography>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <CircleIcon sx={circleStyle} className={res.co2_1 ? res.co2_1 : 'gray'} />
@@ -189,7 +204,7 @@ const Dashboard = () => {
             <CircleIcon sx={circleStyle} className={res.co2_3 ? res.co2_3 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.co2_4 ? res.co2_4 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.co2_5 ? res.co2_5 : 'gray'} />
-            <Typography variant='body2'>
+            <Typography variant='h4'>
               CO<sub>2</sub>
             </Typography>
           </div>
@@ -199,7 +214,7 @@ const Dashboard = () => {
             <CircleIcon sx={circleStyle} className={res.pm25_3 ? res.pm25_3 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.pm25_4 ? res.pm25_4 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.pm25_5 ? res.pm25_5 : 'gray'} />
-            <Typography variant='body2'>PM2.5</Typography>
+            <Typography variant='h4'>PM2.5</Typography>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <CircleIcon sx={circleStyle} className={res.pm10_1 ? res.pm10_1 : 'gray'} />
@@ -207,33 +222,31 @@ const Dashboard = () => {
             <CircleIcon sx={circleStyle} className={res.pm10_3 ? res.pm10_3 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.pm10_4 ? res.pm10_4 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.pm10_5 ? res.pm10_5 : 'gray'} />
-            <Typography variant='body2'>PM10</Typography>
+            <Typography variant='h4'>PM10</Typography>
           </div>
         </div>
         <div
           style={{
+            width: '100%',
             display: 'flex',
             justifyContent: 'space-between',
-            height: ' 100px',
+            height: ' 10vh',
             alignItems: 'center',
           }}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <img src={Logo} alt={'Logo'} width='60px' />{' '}
+          <div style={{ display: 'flex', alignItems: 'center', width: '16%' }}>
+            <img src={Logo} alt={'Logo'} width='100%' />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography fontWeight={'bold'} color={'black'} fontSize='1.3em' variant={'body1'}>
+            <Typography fontWeight={'bold'} color={'black'} variant={isDesk ? 'h4' : 'h3'}>
               {res.machine}
             </Typography>
-            <Typography
-              fontWeight={'bold'}
-              color={'black'}
-              fontSize='1.3em'
-              mt={0.5}
-              variant={'body1'}>
+            <Typography fontWeight={'bold'} color={'black'} mt={0.5} variant={isDesk ? 'h4' : 'h3'}>
               {res.customer}
             </Typography>
-            <Typography color={'black'} variant={'body1'} fontSize='.9em' mt={0.5}>
-              Next Inspection Date: {res.date}
+            <Typography color={'black'} variant={'h4'} textAlign='center' mt={0.5}>
+              Next Inspection Date:
+              {isMobile && <br />}
+              {res.date}
             </Typography>
           </div>
           <div
