@@ -15,6 +15,8 @@ import Logo from '../assests/logo.png';
 import axios from 'axios';
 import { useRef } from 'react';
 import { UserContext } from '../context/UserContext';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 const circleStyle = {
   width: '2.7vh',
@@ -57,6 +59,9 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
 }));
 
 const Control = () => {
+  const theme = useTheme();
+  const isDesk = useMediaQuery(theme.breakpoints.up('lg'));
+
   const navigate = useNavigate();
   const startRef = useRef();
   const [res, setRes] = useState({});
@@ -167,7 +172,6 @@ const Control = () => {
           sx={{
             textDecoration: 'Underline',
             textAlign: 'center',
-            color: 'black',
             mb: '.1vh',
             fontSize: '3.3vh !important',
             height: '6.5vh',
@@ -196,7 +200,7 @@ const Control = () => {
             <Relay
               id='1'
               lable={
-                <Typography variant='h4' fontWeight='bold'>
+                <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
                   Override 1
                 </Typography>
               }
@@ -207,7 +211,7 @@ const Control = () => {
             <Relay
               id='2'
               lable={
-                <Typography variant='h4' fontWeight='bold'>
+                <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
                   Override 2
                 </Typography>
               }
@@ -220,7 +224,7 @@ const Control = () => {
               <ListItemText
                 sx={{ m: 0, fontSize: '2vh !important' }}
                 primary={
-                  <Typography variant='h4' fontWeight='bold'>
+                  <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
                     System RST
                   </Typography>
                 }
@@ -238,7 +242,7 @@ const Control = () => {
               <ListItemText
                 sx={{ m: 0, fontSize: '2vh !important' }}
                 primary={
-                  <Typography variant='h4' fontWeight='bold'>
+                  <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
                     Select Mode
                   </Typography>
                 }
@@ -278,7 +282,7 @@ const Control = () => {
                   <ListItemText
                     sx={{ m: 0, fontSize: '2vh !important' }}
                     primary={
-                      <Typography variant='h4' fontWeight='bold'>
+                      <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
                         Shift Start Time
                       </Typography>
                     }
@@ -299,7 +303,7 @@ const Control = () => {
                   <ListItemText
                     sx={{ m: 0, fontSize: '2vh !important' }}
                     primary={
-                      <Typography variant='h4' fontWeight='bold'>
+                      <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
                         Shift End Time
                       </Typography>
                     }
@@ -320,7 +324,7 @@ const Control = () => {
                   <ListItemText
                     sx={{ m: 0, fontSize: '2vh !important' }}
                     primary={
-                      <Typography variant='h4' fontWeight='bold'>
+                      <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
                         System Override Time
                       </Typography>
                     }
@@ -354,7 +358,7 @@ const Control = () => {
                 <ListItemText
                   sx={{ m: 0, fontSize: '2vh !important' }}
                   primary={
-                    <Typography variant='h4' fontWeight='bold'>
+                    <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
                       System Violated
                     </Typography>
                   }
@@ -366,7 +370,7 @@ const Control = () => {
                 <ListItemText
                   sx={{ m: 0, fontSize: '2vh !important' }}
                   primary={
-                    <Typography variant='h4' fontWeight='bold'>
+                    <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
                       Replace Filter
                     </Typography>
                   }
@@ -377,12 +381,14 @@ const Control = () => {
                 <ListItemText
                   sx={{ m: 0, fontSize: '2vh !important' }}
                   primary={
-                    <Typography variant='h4' fontWeight='bold'>
+                    <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
                       HVAC Status
                     </Typography>
                   }
                 />
-                <Typography variant='h4' sx={{ border: '1px solid black', p: 1, borderRadius: 3 }}>
+                <Typography
+                  variant={isDesk ? 'h5' : 'h4'}
+                  sx={{ border: '1px solid black', p: 1, borderRadius: 3 }}>
                   {res.oc}
                 </Typography>
               </ListItem>
@@ -397,16 +403,16 @@ const Control = () => {
             alignItems: 'center',
           }}>
           <div style={{ display: 'flex', alignItems: 'center', width: '16%' }}>
-            <img src={Logo} alt={'Logo'} width='100%' />{' '}
+            <img src={Logo} alt={'Logo'} width='90%' />{' '}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography fontWeight={'bold'} color={'black'} variant={'h3'}>
+            <Typography fontWeight={'bold'} variant={isDesk ? 'h4' : 'h3'}>
               {location.state.machine}
             </Typography>
-            <Typography fontWeight={'bold'} color={'black'} mt={0.5} variant={'h3'}>
+            <Typography fontWeight={'bold'} mt={0.5} variant={isDesk ? 'h4' : 'h3'}>
               {location.state.user}
             </Typography>
-            <Typography color={'black'} variant={'h4'} mt={0.5}>
+            <Typography variant={isDesk ? 'h5' : 'h4'} mt={0.5}>
               Next Inspection Date: {location.state.date}
             </Typography>
           </div>

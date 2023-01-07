@@ -41,7 +41,10 @@ export default function Machines() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static' sx={{ bgcolor: 'white' }}>
         <Toolbar>
-          <Typography variant='h5' component='div' sx={{ flexGrow: 1, color: 'black' }}>
+          <Typography
+            variant='h4'
+            component='div'
+            sx={{ flexGrow: 1, color: 'black', fontWeight: 'bold' }}>
             Machines
           </Typography>
           <Button variant='contained' onClick={handleLogout}>

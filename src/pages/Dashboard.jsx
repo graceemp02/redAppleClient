@@ -40,10 +40,14 @@ const Dashboard = () => {
   useEffect(() => {
     fetchDta();
     const node = document.createElement('script');
+    node.id = 'aniScript';
     node.src = 'js/script.js';
     document.body.appendChild(node);
   }, []);
-
+  const removeAnimationScript = () => {
+    const node = document.getElementById('aniScript');
+    node.remove();
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       fetchDta();
@@ -51,6 +55,7 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [api]);
   const handleLogout = () => {
+    removeAnimationScript();
     setUser(null);
     sessionStorage.clear();
     navigate('/login');
@@ -89,13 +94,14 @@ const Dashboard = () => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+
         minHeight: '98vh',
         // overflow: 'hidden',
       }}>
       <div style={mainStyle}>
         <div style={{ display: 'flex', width: '95% !important', justifyContent: 'space-between' }}>
           <div>
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
               AQI
             </Typography>
             <Typography variant='h4' sx={{ textAlign: 'center' }}>
@@ -103,7 +109,7 @@ const Dashboard = () => {
             </Typography>
           </div>
           <div className='centerIcon'>
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
               Fan
             </Typography>
             <div className='iconsDiv'>
@@ -112,7 +118,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className='centerIcon'>
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
               UCV
             </Typography>
             <div className='iconsDiv'>
@@ -122,7 +128,7 @@ const Dashboard = () => {
           </div>
           <div className='centerIcon'>
             {' '}
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
               OSA
             </Typography>
             <div className='iconsDiv'>
@@ -132,7 +138,7 @@ const Dashboard = () => {
           </div>
           <div className='centerIcon'>
             {' '}
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
               C/H
             </Typography>
             <div className='iconsDiv'>
@@ -141,7 +147,7 @@ const Dashboard = () => {
             </div>{' '}
           </div>
           <div>
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold', color: 'black' }}>
+            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
               Temp
             </Typography>
             <Typography sx={{ textAlign: 'center' }} variant='h4'>
@@ -159,7 +165,6 @@ const Dashboard = () => {
         </div>
         <div>
           <Typography
-            color={'black'}
             lineHeight={1}
             sx={{ fontSize: '3vh', mb: '10px', textAlign: 'center', fontWeight: 'bold' }}>
             HEALTHY INDOOR AIR QUALITY
@@ -233,17 +238,23 @@ const Dashboard = () => {
             height: ' 10vh',
             alignItems: 'center',
           }}>
-          <div style={{ display: 'flex', alignItems: 'center', width: '16%' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '16%',
+            }}>
             <img src={Logo} alt={'Logo'} width='100%' />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography fontWeight={'bold'} color={'black'} variant={isDesk ? 'h4' : 'h3'}>
+            <Typography fontWeight={'bold'} variant={isDesk ? 'h4' : 'h3'}>
               {res.machine}
             </Typography>
-            <Typography fontWeight={'bold'} color={'black'} mt={0.5} variant={isDesk ? 'h4' : 'h3'}>
+            <Typography fontWeight={'bold'} mt={0.5} variant={isDesk ? 'h4' : 'h3'}>
               {res.customer}
             </Typography>
-            <Typography color={'black'} variant={'h4'} textAlign='center' mt={0.5}>
+            <Typography variant={'h4'} textAlign='center' mt={0.5}>
               Next Inspection Date:
               {isMobile && <br />}
               {res.date}
@@ -266,11 +277,12 @@ const Dashboard = () => {
                 textTransform: 'capitalize',
               }}
               variant='contained'
-              onClick={() =>
+              onClick={() => {
+                removeAnimationScript();
                 navigate('/control', {
                   state: { api: api, machine: res.machine, date: res.date, user: res.customer },
-                })
-              }
+                });
+              }}
               size='small'>
               Time
             </Button>
@@ -284,7 +296,10 @@ const Dashboard = () => {
               }}
               width={100}
               variant='contained'
-              onClick={() => navigate('/')}
+              onClick={() => {
+                removeAnimationScript();
+                navigate('/');
+              }}
               size='small'>
               Machines
             </Button>
