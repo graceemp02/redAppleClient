@@ -9,7 +9,12 @@ body {
   min-height: 100vh;
   color: rgb(63, 62, 62) !important;
 }
-* .loginContainer {
+
+/* * {
+  touch-action: manipulation;
+} */
+
+.loginContainer {
   background-color: #f0f8ff;
   min-height: 100vh;
   min-width: 100vw;
@@ -93,11 +98,8 @@ body {
 }
 
 #outer {
-  height: 40vh;
-  aspect-ratio: 4/3;
-  width: 90%;
-  margin: 0 auto;
-}
-#outer canvas {
-  margin: 0;
+  height: 50vh;
+  /* width: 100%; */
+  aspect-ratio: 1/1;
+  /* margin: 0 auto; */
 }

@@ -74,6 +74,10 @@ const Dashboard = () => {
   } else {
     img = F;
   }
+  const backtoMachine = e => {
+    removeAnimationScript();
+    navigate('/');
+  };
   const mainStyle = {
     flex: 1,
     width: { xs: '95%', sm: '70%' },
@@ -101,15 +105,15 @@ const Dashboard = () => {
       <div style={mainStyle}>
         <div style={{ display: 'flex', width: '95% !important', justifyContent: 'space-between' }}>
           <div>
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
+            <Typography fontSize='2.5vh' sx={{ fontWeight: 'bold' }}>
               AQI
             </Typography>
-            <Typography variant='h4' sx={{ textAlign: 'center' }}>
+            <Typography fontSize='2vh' sx={{ textAlign: 'center' }}>
               {res.aqi}%
             </Typography>
           </div>
           <div className='centerIcon'>
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
+            <Typography fontSize='2.5vh' sx={{ fontWeight: 'bold' }}>
               Fan
             </Typography>
             <div className='iconsDiv'>
@@ -118,7 +122,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className='centerIcon'>
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
+            <Typography fontSize='2.5vh' sx={{ fontWeight: 'bold' }}>
               UCV
             </Typography>
             <div className='iconsDiv'>
@@ -128,7 +132,7 @@ const Dashboard = () => {
           </div>
           <div className='centerIcon'>
             {' '}
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
+            <Typography fontSize='2.5vh' sx={{ fontWeight: 'bold' }}>
               OSA
             </Typography>
             <div className='iconsDiv'>
@@ -138,7 +142,7 @@ const Dashboard = () => {
           </div>
           <div className='centerIcon'>
             {' '}
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
+            <Typography fontSize='2.5vh' sx={{ fontWeight: 'bold' }}>
               C/H
             </Typography>
             <div className='iconsDiv'>
@@ -147,20 +151,19 @@ const Dashboard = () => {
             </div>{' '}
           </div>
           <div>
-            <Typography variant={isDesk ? 'h4' : 'h3'} sx={{ fontWeight: 'bold' }}>
+            <Typography fontSize='2.5vh' sx={{ fontWeight: 'bold' }}>
               Temp
             </Typography>
-            <Typography sx={{ textAlign: 'center' }} variant='h4'>
+            <Typography sx={{ textAlign: 'center' }} fontSize='2vh'>
               {res.temp}°F
             </Typography>{' '}
           </div>
         </div>
-        <div>
-          <div id='outer'>
-            <div id='three-container' style={{ display: 'flex', justifyContent: 'center' }}>
-              <img id='img1' alt='AQI Level' src={img} style={{ display: 'none' }} />
-              <img id='img2' alt='Ad Display' src={Ad} style={{ display: 'none' }} />
-            </div>
+        <div id='outer'>
+          <div id='three-container' style={{ display: 'flex', justifyContent: 'center' }}>
+            <img id='img1' alt='AQI Level' src={img} style={{ display: 'none' }} />
+            <img id='img2' alt='Ad Display' src={Ad} style={{ display: 'none' }} />
+            {/* <img id='img2' alt='Ad Display' src={MyAd} style={{ display: 'none' }} /> */}
           </div>
         </div>
         <div>
@@ -193,7 +196,7 @@ const Dashboard = () => {
                 <CircleIcon sx={circleStyle} className={res.humHdnInd4 ? res.humHdnInd4 : 'gray'} />
               </Box>
             </div>
-            <Typography variant='h4'>Humidity</Typography>
+            <Typography fontSize='2vh'>Humidity</Typography>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <CircleIcon sx={circleStyle} className={res.voc1 ? res.voc1 : 'gray'} />
@@ -201,7 +204,7 @@ const Dashboard = () => {
             <CircleIcon sx={circleStyle} className={res.voc3 ? res.voc3 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.voc4 ? res.voc4 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.voc5 ? res.voc5 : 'gray'} />
-            <Typography variant='h4'>VOC</Typography>
+            <Typography fontSize='2vh'>VOC</Typography>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <CircleIcon sx={circleStyle} className={res.co2_1 ? res.co2_1 : 'gray'} />
@@ -209,7 +212,7 @@ const Dashboard = () => {
             <CircleIcon sx={circleStyle} className={res.co2_3 ? res.co2_3 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.co2_4 ? res.co2_4 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.co2_5 ? res.co2_5 : 'gray'} />
-            <Typography variant='h4'>
+            <Typography fontSize='2vh'>
               CO<sub>2</sub>
             </Typography>
           </div>
@@ -219,7 +222,7 @@ const Dashboard = () => {
             <CircleIcon sx={circleStyle} className={res.pm25_3 ? res.pm25_3 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.pm25_4 ? res.pm25_4 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.pm25_5 ? res.pm25_5 : 'gray'} />
-            <Typography variant='h4'>PM2.5</Typography>
+            <Typography fontSize='2vh'>PM2.5</Typography>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <CircleIcon sx={circleStyle} className={res.pm10_1 ? res.pm10_1 : 'gray'} />
@@ -227,7 +230,7 @@ const Dashboard = () => {
             <CircleIcon sx={circleStyle} className={res.pm10_3 ? res.pm10_3 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.pm10_4 ? res.pm10_4 : 'gray'} />
             <CircleIcon sx={circleStyle} className={res.pm10_5 ? res.pm10_5 : 'gray'} />
-            <Typography variant='h4'>PM10</Typography>
+            <Typography fontSize='2vh'>PM10</Typography>
           </div>
         </div>
         <div
@@ -248,13 +251,13 @@ const Dashboard = () => {
             <img src={Logo} alt={'Logo'} width='100%' />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography fontWeight={'bold'} variant={isDesk ? 'h4' : 'h3'}>
+            <Typography fontWeight={'bold'} fontSize='2.5vh'>
               {res.machine}
             </Typography>
-            <Typography fontWeight={'bold'} mt={0.5} variant={isDesk ? 'h4' : 'h3'}>
+            <Typography fontWeight={'bold'} mt={0.5} fontSize='2.5vh'>
               {res.customer}
             </Typography>
-            <Typography variant={'h4'} textAlign='center' mt={0.5}>
+            <Typography fontSize='2vh' textAlign='center' mt={0.5}>
               Next Inspection Date:
               {isMobile && <br />}
               {res.date}
@@ -277,8 +280,8 @@ const Dashboard = () => {
                 textTransform: 'capitalize',
               }}
               variant='contained'
-              onClick={() => {
-                removeAnimationScript();
+              onClick={e => {
+                e.preventDefault();
                 navigate('/control', {
                   state: { api: api, machine: res.machine, date: res.date, user: res.customer },
                 });
@@ -296,10 +299,7 @@ const Dashboard = () => {
               }}
               width={100}
               variant='contained'
-              onClick={() => {
-                removeAnimationScript();
-                navigate('/');
-              }}
+              onClick={backtoMachine}
               size='small'>
               Machines
             </Button>
