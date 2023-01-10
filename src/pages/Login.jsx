@@ -28,7 +28,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) navigate('/');
+    if (user) navigate('/clientTest/');
   }, []);
   const handleSubmit = async e => {
     e.preventDefault();
@@ -44,7 +44,7 @@ export default function Login() {
         if (res === 'true') {
           setUser(result.data.id);
           sessionStorage.setItem('id', result.data.id);
-          navigate('/');
+          navigate('/clientTest/');
         } else if (res === 'Password Incorrent') setPwdError(true);
         else {
           setEmailError(true);

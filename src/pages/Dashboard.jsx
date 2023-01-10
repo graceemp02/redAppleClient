@@ -58,7 +58,7 @@ const Dashboard = () => {
     removeAnimationScript();
     setUser(null);
     sessionStorage.clear();
-    navigate('/login');
+    navigate('/clientTest/login');
   };
   let img = A;
   if (res.letter === 'A') {
@@ -76,7 +76,7 @@ const Dashboard = () => {
   }
   const backtoMachine = e => {
     removeAnimationScript();
-    navigate('/');
+    navigate('/clientTest/');
   };
   const mainStyle = {
     flex: 1,
@@ -282,7 +282,7 @@ const Dashboard = () => {
               variant='contained'
               onClick={e => {
                 e.preventDefault();
-                navigate('/control', {
+                navigate('/clientTest/control', {
                   state: { api: api, machine: res.machine, date: res.date, user: res.customer },
                 });
               }}
