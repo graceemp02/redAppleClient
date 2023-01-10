@@ -17,11 +17,11 @@ function App() {
       <BrowserRouter>
         <UserContext.Provider value={{ user, setUser }}>
           <Routes>
-            <Route path='/login' element={<Login />} />
-            <Route path='/' element={<Protected Component={Machines} />} />
-            <Route path='/*' element={<Protected Component={Machines} />} />
-            <Route path='/dashboard' element={<Protected Component={Dashboard} />} />
-            <Route path='/control' element={<Protected Component={Control} />} />
+            <Route path='/clientTest/login' element={<Login />} />
+            <Route path='/clientTest/' element={<Protected Component={Machines} />} />
+            <Route path='/clientTest/*' element={<Protected Component={Machines} />} />
+            <Route path='/clientTest/dashboard' element={<Protected Component={Dashboard} />} />
+            <Route path='/clientTest/control' element={<Protected Component={Control} />} />
           </Routes>
         </UserContext.Provider>
       </BrowserRouter>
