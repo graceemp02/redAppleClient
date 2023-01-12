@@ -15,7 +15,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       {/* <BrowserRouter basename='/clientest'> */}
-      <BrowserRouter basename='/clientTest'>
+      <BrowserRouter>
         <UserContext.Provider value={{ user, setUser }}>
           <Routes>
             <Route path='/login' element={<Login />} />
