@@ -35,7 +35,7 @@ export default function Machines() {
   const handleLogout = () => {
     setUser(null);
     sessionStorage.clear();
-    navigate('/clientTest/login');
+    navigate('/login');
   };
   return (
     <Box sx={{ flexGrow: 1 }}>

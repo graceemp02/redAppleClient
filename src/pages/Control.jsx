@@ -113,7 +113,7 @@ const Control = () => {
   const handleLogout = () => {
     setUser(null);
     sessionStorage.clear();
-    navigate('/clientTest/login');
+    navigate('/login');
   };
   const handleSubmit = async e => {
     e.preventDefault();
@@ -447,7 +447,7 @@ const Control = () => {
               }}
               width={100}
               variant='contained'
-              onClick={() => navigate('/clientTest/')}
+              onClick={() => navigate('/')}
               size='small'>
               Machines
             </Button>

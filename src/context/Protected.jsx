@@ -9,7 +9,7 @@ const Protected = ({ Component }) => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user) navigate('/clientTest/login');
+    if (!user) navigate('/login');
   }, []);
 
   return <Component />;
