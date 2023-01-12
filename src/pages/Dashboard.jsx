@@ -17,7 +17,6 @@ const circleStyle = {
 const Dashboard = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isDesk = useMediaQuery(theme.breakpoints.up('lg'));
   const navigate = useNavigate();
   const [res, setRes] = useState({});
   const [display, setDisplay] = useState('flex');

@@ -17,8 +17,8 @@ git push
 echo "Building App........................................"
 npm run build
 
-# echo "Deploying Files to Server........................................"
-# scp -r build/* root@198.199.82.208:/var/www/iamredapple.com/clientTest
+echo "Deploying Files to Server........................................"
+scp -r build/* root@198.199.82.208:/var/www/iamredapple.com/clientTest
 
 # scp -r build/* root@209.23.8.13:/var/www/html/
 
