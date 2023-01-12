@@ -14,7 +14,7 @@ function App() {
   const [user, setUser] = useState(sessionStorage.getItem('id'));
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter basename='/clientTest'>
+      <BrowserRouter basename='/clientest'>
         <UserContext.Provider value={{ user, setUser }}>
           <Routes>
             <Route path='/login' element={<Login />} />
