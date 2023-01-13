@@ -112,7 +112,7 @@ const Control = () => {
   };
   const handleLogout = () => {
     setUser(null);
-    sessionStorage.clear();
+    localStorage.clear();
     navigate('/login');
   };
   const handleSubmit = async e => {

@@ -43,7 +43,8 @@ export default function Login() {
         const res = result.data['res'];
         if (res === 'true') {
           setUser(result.data.id);
-          sessionStorage.setItem('id', result.data.id);
+          // sessionStorage.setItem('id', result.data.id);
+          localStorage.setItem('id', result.data.id);
           navigate('/');
         } else if (res === 'Password Incorrent') setPwdError(true);
         else {

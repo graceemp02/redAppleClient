@@ -56,7 +56,7 @@ const Dashboard = () => {
   const handleLogout = () => {
     removeAnimationScript();
     setUser(null);
-    sessionStorage.clear();
+    localStorage.clear();
     navigate('/login');
   };
   let img = A;

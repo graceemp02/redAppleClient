@@ -34,7 +34,7 @@ export default function Machines() {
 
   const handleLogout = () => {
     setUser(null);
-    sessionStorage.clear();
+    localStorage.clear();
     navigate('/login');
   };
   return (

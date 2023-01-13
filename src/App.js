@@ -11,11 +11,11 @@ let theme = createTheme();
 theme = responsiveFontSizes(theme, { factor: 10 });
 
 function App() {
-  const [user, setUser] = useState(sessionStorage.getItem('id'));
+  const [user, setUser] = useState(localStorage.getItem('id'));
   return (
     <ThemeProvider theme={theme}>
-      {/* <BrowserRouter basename='/clientest'> */}
-      <BrowserRouter>
+      <BrowserRouter basename='/clientest'>
+        {/* <BrowserRouter> */}
         <UserContext.Provider value={{ user, setUser }}>
           <Routes>
             <Route path='/login' element={<Login />} />
