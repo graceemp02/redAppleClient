@@ -12,7 +12,7 @@ const circleStyle = {
 const shortButton = {
   width: '5vh',
   padding: ' .5vh 3vh',
-  fontSize: '1.2vh',
+  fontSize: '1.5vh',
 };
 const Relay = ({ id, lable, btn, ind, onBtnClick }) => {
   return (

@@ -1,22 +1,28 @@
 /** @format */
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Box';
-import List from '@mui/material/List';
 import CircleIcon from '@mui/icons-material/Circle';
-import ListItemText from '@mui/material/ListItemText';
+
 import { styled } from '@mui/material/styles';
 
-import { Button, ListItem, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import {
+  Button,
+  ListItem,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+  List,
+  ListItemText,
+  useMediaQuery,
+} from '@mui/material';
 import Relay from '../components/Relay';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Logo from '../assests/logo.png';
+import { useTheme } from '@mui/material/styles';
 
 import axios from 'axios';
 import { useRef } from 'react';
-import { UserContext } from '../context/UserContext';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
 
 const circleStyle = {
   width: '2.7vh',
@@ -59,9 +65,6 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
 }));
 
 const Control = () => {
-  const theme = useTheme();
-  const isDesk = useMediaQuery(theme.breakpoints.up('lg'));
-
   const navigate = useNavigate();
   const startRef = useRef();
   const [res, setRes] = useState({});
@@ -71,20 +74,20 @@ const Control = () => {
   const pm10Ref = useRef();
   const pm25Ref = useRef();
   const co2Ref = useRef();
-  const location = useLocation();
-  // const api0 = location.state.api;
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [alignment, setAlignment] = useState('0');
-  const api2 = localStorage.getItem('api');
-  const { setUser } = useContext(UserContext);
+  const api = localStorage.getItem('api');
 
   const fetchDta = async () => {
     await axios
       .get('system.php', {
-        params: { api: api2 },
+        params: { api: api },
       })
       .then(result => {
         setRes(result.data);
-
         setAlignment(result.data.aop);
       })
       .catch(error => console.log(error));
@@ -92,10 +95,10 @@ const Control = () => {
   const pushData = async id => {
     await axios
       .get('system.php', {
-        params: { api: api2, relay: id },
+        params: { api: api, relay: id },
       })
       .then(result => {
-        console.log(result);
+        // console.log(result);
       })
       .catch(error => console.log(error));
   };
@@ -105,13 +108,12 @@ const Control = () => {
       fetchDta();
     }, 1000);
     return () => clearInterval(interval);
-  }, [api2]);
+  }, [api]);
 
   const handleRelayBtnClick = id => {
     pushData(id);
   };
   const handleLogout = () => {
-    setUser(null);
     localStorage.clear();
     navigate('/login');
   };
@@ -123,7 +125,7 @@ const Control = () => {
     formData.append('sot', sotRef.current.value === '' ? res.sot : sotRef.current.value);
 
     await axios
-      .post(`system.php?api=${api2}`, formData)
+      .post(`system.php?api=${api}`, formData)
       .then(() => {
         startRef.current.value = '';
         endRef.current.value = '';
@@ -152,16 +154,16 @@ const Control = () => {
     justifyContent: 'flex-start',
     padding: '.75em',
   };
+  const parant = {
+    padding: isMobile ? '1vh' : '1vh 5vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+  };
   return (
-    <div
-      style={{
-        padding: '1vh 5vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '98vh',
-      }}>
+    <div style={parant}>
       <div style={mainStyle}>
         <Typography
           align='left'
@@ -173,8 +175,8 @@ const Control = () => {
             textDecoration: 'Underline',
             textAlign: 'center',
             mb: '.1vh',
-            fontSize: '3.3vh !important',
-            height: '6.5vh',
+            fontSize: '3vh !important',
+            // height: '6.5vh',
           }}>
           SYSTEM OVERRIDE
         </Typography>
@@ -200,7 +202,7 @@ const Control = () => {
             <Relay
               id='1'
               lable={
-                <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
+                <Typography fontSize='2.4vh' fontWeight='bold'>
                   Override 1
                 </Typography>
               }
@@ -211,7 +213,7 @@ const Control = () => {
             <Relay
               id='2'
               lable={
-                <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
+                <Typography fontSize='2.4vh' fontWeight='bold'>
                   Override 2
                 </Typography>
               }
@@ -224,7 +226,7 @@ const Control = () => {
               <ListItemText
                 sx={{ m: 0, fontSize: '2vh !important' }}
                 primary={
-                  <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
+                  <Typography fontSize='2.4vh' fontWeight='bold'>
                     System RST
                   </Typography>
                 }
@@ -242,25 +244,25 @@ const Control = () => {
               <ListItemText
                 sx={{ m: 0, fontSize: '2vh !important' }}
                 primary={
-                  <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
+                  <Typography fontSize='2.4vh' fontWeight='bold'>
                     Select Mode
                   </Typography>
                 }
               />
               <StyledToggleButtonGroup
-                sx={{ bgcolor: 'gray', height: '70px' }}
+                sx={{ bgcolor: 'gray', height: '4.5vh', py: 2 }}
                 color='primary'
                 value={alignment}
                 exclusive
                 onChange={handleChange}>
                 <ToggleButton onClick={() => handleRelayBtnClick('4')} value='1'>
-                  Auto
+                  <Typography fontSize='2vh'>Auto</Typography>
                 </ToggleButton>
                 <ToggleButton onClick={() => handleRelayBtnClick('5')} value='0'>
-                  OFF
+                  <Typography fontSize='2vh'>OFF</Typography>
                 </ToggleButton>
                 <ToggleButton onClick={() => handleRelayBtnClick('6')} value='2'>
-                  Program
+                  <Typography fontSize='2vh'>Program</Typography>
                 </ToggleButton>
               </StyledToggleButtonGroup>
             </ListItem>
@@ -282,7 +284,7 @@ const Control = () => {
                   <ListItemText
                     sx={{ m: 0, fontSize: '2vh !important' }}
                     primary={
-                      <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
+                      <Typography fontSize='2.4vh' fontWeight='bold'>
                         Shift Start Time
                       </Typography>
                     }
@@ -303,7 +305,7 @@ const Control = () => {
                   <ListItemText
                     sx={{ m: 0, fontSize: '2vh !important' }}
                     primary={
-                      <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
+                      <Typography fontSize='2.4vh' fontWeight='bold'>
                         Shift End Time
                       </Typography>
                     }
@@ -324,7 +326,7 @@ const Control = () => {
                   <ListItemText
                     sx={{ m: 0, fontSize: '2vh !important' }}
                     primary={
-                      <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
+                      <Typography fontSize='2.4vh' fontWeight='bold'>
                         System Override Time
                       </Typography>
                     }
@@ -358,7 +360,7 @@ const Control = () => {
                 <ListItemText
                   sx={{ m: 0, fontSize: '2vh !important' }}
                   primary={
-                    <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
+                    <Typography fontSize='2.4vh' fontWeight='bold'>
                       System Violated
                     </Typography>
                   }
@@ -370,7 +372,7 @@ const Control = () => {
                 <ListItemText
                   sx={{ m: 0, fontSize: '2vh !important' }}
                   primary={
-                    <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
+                    <Typography fontSize='2.4vh' fontWeight='bold'>
                       Replace Filter
                     </Typography>
                   }
@@ -381,13 +383,13 @@ const Control = () => {
                 <ListItemText
                   sx={{ m: 0, fontSize: '2vh !important' }}
                   primary={
-                    <Typography variant={isDesk ? 'h5' : 'h4'} fontWeight='bold'>
+                    <Typography fontSize='2.4vh' fontWeight='bold'>
                       HVAC Status
                     </Typography>
                   }
                 />
                 <Typography
-                  variant={isDesk ? 'h5' : 'h4'}
+                  fontSize='2vh'
                   sx={{ border: '1px solid black', p: 1, borderRadius: 3 }}>
                   {res.oc}
                 </Typography>
@@ -399,24 +401,25 @@ const Control = () => {
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            height: ' 10vh',
+            height: ' 13vh',
             alignItems: 'center',
           }}>
           <div style={{ display: 'flex', alignItems: 'center', width: '16%' }}>
             <img src={Logo} alt={'Logo'} width='90%' />{' '}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography fontWeight={'bold'} variant={isDesk ? 'h4' : 'h3'}>
+            <Typography fontWeight={'bold'} fontSize='2.5vh'>
               {/* {location.state.machine} */}
               {localStorage.getItem('machine')}
             </Typography>
-            <Typography fontWeight={'bold'} mt={0.5} variant={isDesk ? 'h4' : 'h3'}>
+            <Typography fontWeight={'bold'} mt={0.5} fontSize='2.5vh'>
               {/* {location.state.user} */}
               {localStorage.getItem('user')}
             </Typography>
-            <Typography variant={isDesk ? 'h5' : 'h4'} mt={0.5}>
+            <Typography fontSize='2vh' mt={0.5} textAlign='center'>
               {/* Next Inspection Date: {location.state.date} */}
-              Next Inspection Date: {localStorage.getItem('date')}
+              Next Inspection Date: {isMobile && <br />}
+              {localStorage.getItem('date')}
             </Typography>
           </div>
           <div

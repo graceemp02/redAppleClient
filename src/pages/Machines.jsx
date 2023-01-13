@@ -5,23 +5,21 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { UserContext } from '../context/UserContext';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MiniMachine from '../components/MiniMachine';
 import axios from 'axios';
 
 export default function Machines() {
   const [machines, setMachines] = useState([]);
-  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const user2 = localStorage.getItem('id');
+  const user = localStorage.getItem('id');
   useEffect(() => {
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
     axios
       .get('miniMachines.php', {
-        params: { cid: user2 },
+        params: { cid: user },
         cancelToken: source.token,
       })
       .then(result => {
@@ -34,7 +32,6 @@ export default function Machines() {
   }, [user]);
 
   const handleLogout = () => {
-    setUser(null);
     localStorage.clear();
     navigate('/login');
   };
@@ -46,12 +43,11 @@ export default function Machines() {
       <AppBar position='static' sx={{ bgcolor: 'white' }}>
         <Toolbar>
           <Typography
-            variant='h4'
             component='div'
-            sx={{ flexGrow: 1, color: 'black', fontWeight: 'bold' }}>
+            sx={{ fontSize: '3.5vh', flexGrow: 1, color: 'black', fontWeight: 'bold' }}>
             Machines
           </Typography>
-          <Button variant='contained' onClick={handleLogout}>
+          <Button variant='contained' sx={{ fontSize: '1.5vh' }} onClick={handleLogout}>
             Logout
           </Button>
         </Toolbar>

@@ -1,14 +1,14 @@
 /** @format */
 
-import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Typography, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Logo from '../assests/logo.png';
 import CircleIcon from '@mui/icons-material/Circle';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { UserContext } from '../context/UserContext';
+
 import { A, B, C, D, E, F, Ad } from '../assests';
 const circleStyle = {
   width: '2.7vh',
@@ -20,16 +20,13 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [res, setRes] = useState({});
   const [display, setDisplay] = useState('flex');
-  const location = useLocation();
-  const { setUser } = useContext(UserContext);
 
-  // const api0 = location.state.data;
-  const api2 = localStorage.getItem('api');
+  const api = localStorage.getItem('api');
 
   const fetchDta = async () => {
     await axios
       .get('dashboard.php', {
-        params: { api: api2 },
+        params: { api: api },
       })
       .then(result => {
         setRes(result.data);
@@ -56,10 +53,9 @@ const Dashboard = () => {
       fetchDta();
     }, 1000);
     return () => clearInterval(interval);
-  }, [api2]);
+  }, [api]);
   const handleLogout = () => {
     removeAnimationScript();
-    setUser(null);
     localStorage.clear();
     navigate('/login');
   };
@@ -92,6 +88,7 @@ const Dashboard = () => {
     flexDirection: 'column',
     justifyContent: 'space-between',
     padding: '.75em',
+    maxWidth: '100vw',
   };
   return (
     <div
@@ -285,9 +282,7 @@ const Dashboard = () => {
               variant='contained'
               onClick={e => {
                 e.preventDefault();
-                navigate('/control', {
-                  state: { api: api2, machine: res.machine, date: res.date, user: res.customer },
-                });
+                navigate('/control');
               }}
               size='small'>
               Time

@@ -34,13 +34,15 @@ body {
 }
 .machineBox {
   border-style: solid;
-  border-radius: 1em;
+  border-radius: 1vh;
   border-color: grey;
-  margin: 1em;
-  width: 13em;
+  margin: 2vh;
+  /* width: 13em; */
+  height: 24vh;
 }
 .machine {
-  font-size: 12em;
+  padding-inline: 2vh;
+  font-size: 20vh;
   text-decoration: none;
   border-bottom: solid;
   border-color: grey;
@@ -54,7 +56,7 @@ body {
   margin: 10px;
   letter-spacing: 2px;
   color: black;
-  font-size: 1.6rem;
+  font-size: 2.7vh;
 }
 
 .colorA {
@@ -102,4 +104,15 @@ body {
   /* width: 100%; */
   aspect-ratio: 1/1;
   /* margin: 0 auto; */
+}
+.loginField {
+  margin-block: 5vh;
+  height: 5vh;
+  font-size: 2vh !important;
+}
+.loginField label {
+  font-size: 2vh;
+}
+.loginField input {
+  font-size: 3vh;
 }
