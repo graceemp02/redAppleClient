@@ -23,15 +23,19 @@ const Dashboard = () => {
   const location = useLocation();
   const { setUser } = useContext(UserContext);
 
-  const api = location.state.data;
+  // const api0 = location.state.data;
+  const api2 = localStorage.getItem('api');
 
   const fetchDta = async () => {
     await axios
       .get('dashboard.php', {
-        params: { api: api },
+        params: { api: api2 },
       })
       .then(result => {
         setRes(result.data);
+        localStorage.setItem('machine', result.data.machine);
+        localStorage.setItem('date', result.data.date);
+        localStorage.setItem('user', result.data.customer);
         setDisplay(result.data.humHdnStatus ? 'flex' : 'none');
       })
       .catch(error => console.log(error));
@@ -52,7 +56,7 @@ const Dashboard = () => {
       fetchDta();
     }, 1000);
     return () => clearInterval(interval);
-  }, [api]);
+  }, [api2]);
   const handleLogout = () => {
     removeAnimationScript();
     setUser(null);
@@ -282,7 +286,7 @@ const Dashboard = () => {
               onClick={e => {
                 e.preventDefault();
                 navigate('/control', {
-                  state: { api: api, machine: res.machine, date: res.date, user: res.customer },
+                  state: { api: api2, machine: res.machine, date: res.date, user: res.customer },
                 });
               }}
               size='small'>

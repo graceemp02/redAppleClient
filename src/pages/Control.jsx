@@ -72,15 +72,15 @@ const Control = () => {
   const pm25Ref = useRef();
   const co2Ref = useRef();
   const location = useLocation();
-  const api = location.state.api;
+  // const api0 = location.state.api;
   const [alignment, setAlignment] = useState('0');
-
+  const api2 = localStorage.getItem('api');
   const { setUser } = useContext(UserContext);
 
   const fetchDta = async () => {
     await axios
       .get('system.php', {
-        params: { api: api },
+        params: { api: api2 },
       })
       .then(result => {
         setRes(result.data);
@@ -92,7 +92,7 @@ const Control = () => {
   const pushData = async id => {
     await axios
       .get('system.php', {
-        params: { api: api, relay: id },
+        params: { api: api2, relay: id },
       })
       .then(result => {
         console.log(result);
@@ -105,7 +105,7 @@ const Control = () => {
       fetchDta();
     }, 1000);
     return () => clearInterval(interval);
-  }, [api]);
+  }, [api2]);
 
   const handleRelayBtnClick = id => {
     pushData(id);
@@ -123,7 +123,7 @@ const Control = () => {
     formData.append('sot', sotRef.current.value === '' ? res.sot : sotRef.current.value);
 
     await axios
-      .post(`system.php?api=${api}`, formData)
+      .post(`system.php?api=${api2}`, formData)
       .then(() => {
         startRef.current.value = '';
         endRef.current.value = '';
@@ -407,13 +407,16 @@ const Control = () => {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Typography fontWeight={'bold'} variant={isDesk ? 'h4' : 'h3'}>
-              {location.state.machine}
+              {/* {location.state.machine} */}
+              {localStorage.getItem('machine')}
             </Typography>
             <Typography fontWeight={'bold'} mt={0.5} variant={isDesk ? 'h4' : 'h3'}>
-              {location.state.user}
+              {/* {location.state.user} */}
+              {localStorage.getItem('user')}
             </Typography>
             <Typography variant={isDesk ? 'h5' : 'h4'} mt={0.5}>
-              Next Inspection Date: {location.state.date}
+              {/* Next Inspection Date: {location.state.date} */}
+              Next Inspection Date: {localStorage.getItem('date')}
             </Typography>
           </div>
           <div

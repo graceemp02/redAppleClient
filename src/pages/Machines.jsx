@@ -15,12 +15,13 @@ export default function Machines() {
   const [machines, setMachines] = useState([]);
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const user2 = localStorage.getItem('id');
   useEffect(() => {
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
     axios
       .get('miniMachines.php', {
-        params: { cid: user },
+        params: { cid: user2 },
         cancelToken: source.token,
       })
       .then(result => {
@@ -36,6 +37,9 @@ export default function Machines() {
     setUser(null);
     localStorage.clear();
     navigate('/login');
+  };
+  const handleMachineClick = api => {
+    localStorage.setItem('api', api);
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -54,7 +58,13 @@ export default function Machines() {
       </AppBar>
       <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
         {machines.map(item => (
-          <MiniMachine key={item.id} letter={item.letter} name={item.name} api={item.api} />
+          <MiniMachine
+            onClick={handleMachineClick}
+            key={item.id}
+            letter={item.letter}
+            name={item.name}
+            api={item.api}
+          />
         ))}
       </Box>
     </Box>
