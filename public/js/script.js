@@ -45,8 +45,9 @@ function init() {
   });
 
   root.scene.add(slide2);
-  // animation delay time
-  var tl = new TimelineMax({ repeat: -1, repeatDelay: 3.0, yoyo: true });
+  const time = +document.querySelector('#time').value;
+
+  var tl = new TimelineMax({ repeat: -1, repeatDelay: time, yoyo: true });
 
   tl.add(slide.transition(), 0);
   tl.add(slide2.transition(), 0);

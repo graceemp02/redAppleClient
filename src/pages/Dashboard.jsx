@@ -9,20 +9,44 @@ import Logo from '../assests/logo.png';
 import CircleIcon from '@mui/icons-material/Circle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { A, B, C, D, E, F, Ad } from '../assests';
+import { A, B, C, D, F, Ad } from '../assests';
 const circleStyle = {
   width: '2.7vh',
   height: '2.7vh',
 };
 const Dashboard = () => {
+  const [time, setTime] = useState(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
   const [res, setRes] = useState({});
   const [display, setDisplay] = useState('flex');
+  const [adImg, setAdImg] = useState(Ad);
 
   const api = localStorage.getItem('api');
+  const id = localStorage.getItem('id');
+  /////////////////
 
+  useEffect(() => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
+    axios
+      .get(`advertisment.php?cid=${id}&api=${api}`, { cancelToken: source.token })
+      .then(res => {
+        res.data.path ? setAdImg(axios.defaults.baseURL + res.data.path) : setAdImg(Ad);
+        setTime(res.data.time);
+      })
+      .catch(err => console.log(err));
+    const node = document.createElement('script');
+    node.id = 'aniScript';
+    node.src = 'js/script.js';
+    document.body.appendChild(node);
+    return () => {
+      source.cancel();
+    };
+  }, []);
+
+  /////////////////
   const fetchDta = async () => {
     await axios
       .get('dashboard.php', {
@@ -37,13 +61,7 @@ const Dashboard = () => {
       })
       .catch(error => console.log(error));
   };
-  useEffect(() => {
-    fetchDta();
-    const node = document.createElement('script');
-    node.id = 'aniScript';
-    node.src = 'js/script.js';
-    document.body.appendChild(node);
-  }, []);
+
   const removeAnimationScript = () => {
     const node = document.getElementById('aniScript');
     node.remove();
@@ -60,7 +78,9 @@ const Dashboard = () => {
     navigate('/login');
   };
   let img = A;
-  if (res.letter === 'A') {
+  if (res.letter) {
+    img = A;
+  } else if (res.letter === 'A') {
     img = A;
   } else if (res.letter === 'B') {
     img = B;
@@ -68,8 +88,6 @@ const Dashboard = () => {
     img = C;
   } else if (res.letter === 'D') {
     img = D;
-  } else if (res.letter === 'E') {
-    img = E;
   } else {
     img = F;
   }
@@ -162,8 +180,8 @@ const Dashboard = () => {
         <div id='outer'>
           <div id='three-container' style={{ display: 'flex', justifyContent: 'center' }}>
             <img id='img1' alt='AQI Level' src={img} style={{ display: 'none' }} />
-            <img id='img2' alt='Ad Display' src={Ad} style={{ display: 'none' }} />
-            {/* <img id='img2' alt='Ad Display' src={MyAd} style={{ display: 'none' }} /> */}
+            <img id='img2' alt='Ad Display' src={adImg} style={{ display: 'none' }} />
+            <input id='time' value={time} style={{ display: 'none' }} />
           </div>
         </div>
         <div>

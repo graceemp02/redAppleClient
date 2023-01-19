@@ -78,14 +78,17 @@ export default function Login() {
             <Typography component='h1' sx={{ fontSize: '7vh' }}>
               Red Apple
             </Typography>
-            <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%' }}>
+            <Box
+              component='form'
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ marginBlock: '1vh', width: '100%' }}>
               <TextField
                 error={emailError && true}
                 margin='normal'
                 required
                 fullWidth
                 className='loginField'
-                sx={{ my: '2vh' }}
                 id='email'
                 label='Email Address'
                 name='email'
@@ -98,6 +101,7 @@ export default function Login() {
                 error={pwdError && true}
                 margin='normal'
                 required
+                sx={{ marginBlock: '4vh' }}
                 fullWidth
                 name='password'
                 className='loginField'
