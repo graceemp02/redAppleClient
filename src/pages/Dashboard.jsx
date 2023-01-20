@@ -77,8 +77,9 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [api]);
   useEffect(() => {
-    setInterval(() => {}, 1000);
-    adData();
+    setInterval(() => {
+      adData();
+    }, 1000);
   }, []);
   const handleLogout = () => {
     removeAnimationScript();
@@ -183,9 +184,7 @@ const Dashboard = () => {
             <img id='img1' alt='AQI Level' src={aqiImg} style={{ display: 'none' }} />
 
             <img id='img2' alt='Ad Display' src={adImg} style={{ display: 'none' }} />
-            <span id='time' style={{ display: 'none' }}>
-              {time}
-            </span>
+            <input id='time' style={{ display: 'none' }} defaultValue={time} />
           </div>
         </div>
         <div>

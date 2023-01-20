@@ -3,7 +3,7 @@
 // setInterval(init, 10000);
 
 // window.onload = init;
-window.onload = setTimeout(init, 1000);
+window.onload = setTimeout(init, 2000);
 
 console.ward = function () {}; // what warnings?
 
@@ -29,7 +29,6 @@ function init() {
     slide.setImage(img);
   });
   setInterval(() => {
-    console.log('img 1');
     l1.load(document.getElementById('img1').src, function (img) {
       slide.setImage(img);
     });
@@ -45,19 +44,21 @@ function init() {
     slide2.setImage(img);
   });
   setInterval(() => {
-    console.log('img 2');
     l1.load(document.getElementById('img2').src, function (img) {
+      console.log(`img 2: ${img}`);
       slide.setImage(img);
     });
   }, 30000);
 
   root.scene.add(slide2);
-  let time = +document.querySelector('#time').innerHTML;
 
+  let time = +document.querySelector('#time').defaultValue;
+  console.log(`first time is : ${time}`);
   setInterval(() => {
-    console.log('Ad time');
-    time = +document.querySelector('#time').value;
-  }, 29000);
+    time = +document.querySelector('#time').defaultValue;
+    console.log(`Ad time: ${time}`);
+  }, 1000);
+
   var tl = new TimelineMax({ repeat: -1, repeatDelay: time, yoyo: true });
 
   tl.add(slide.transition(), 0);
@@ -449,11 +450,9 @@ function createTweenScrubber(tween, seekSpeed) {
   window.addEventListener('touchstart', function (e) {
     _cx = e.touches[0].clientX;
     stop();
-    // e.preventDefault();
   });
   window.addEventListener('touchend', function (e) {
     resume();
-    // e.preventDefault();
   });
   window.addEventListener('touchmove', function (e) {
     var cx = e.touches[0].clientX;
@@ -461,6 +460,5 @@ function createTweenScrubber(tween, seekSpeed) {
     _cx = cx;
 
     seek(dx);
-    // e.preventDefault();
   });
 }
