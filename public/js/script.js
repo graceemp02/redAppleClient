@@ -3,7 +3,7 @@
 // setInterval(init, 10000);
 
 // window.onload = init;
-window.onload = setTimeout(init, 500);
+window.onload = setTimeout(init, 1000);
 
 console.ward = function () {}; // what warnings?
 
@@ -33,7 +33,7 @@ function init() {
     l1.load(document.getElementById('img1').src, function (img) {
       slide.setImage(img);
     });
-  }, 10000);
+  }, 2000);
 
   root.scene.add(slide);
 
@@ -44,19 +44,19 @@ function init() {
   l2.load(document.getElementById('img2').src, function (img) {
     slide2.setImage(img);
   });
-  // setInterval(() => {
-  //   console.log('img 2');
-  //   l1.load(document.getElementById('img2').src, function (img) {
-  //     slide.setImage(img);
-  //   });
-  // }, 10000);
+  setInterval(() => {
+    console.log('img 2');
+    l1.load(document.getElementById('img2').src, function (img) {
+      slide.setImage(img);
+    });
+  }, 30000);
 
   root.scene.add(slide2);
   let time = +document.querySelector('#time').value;
-  // setInterval(() => {
-  //   console.log('Ad time');
-  //   time = +document.querySelector('#time').value;
-  // }, 10000);
+  setInterval(() => {
+    console.log('Ad time');
+    time = +document.querySelector('#time').value;
+  }, 29000);
   var tl = new TimelineMax({ repeat: -1, repeatDelay: time, yoyo: true });
 
   tl.add(slide.transition(), 0);

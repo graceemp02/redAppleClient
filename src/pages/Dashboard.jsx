@@ -55,6 +55,18 @@ const Dashboard = () => {
       })
       .then(result => {
         setRes(result.data);
+        let letter = result.data.letter;
+        if (letter === 'A') {
+          setAqiImg(A);
+        } else if (letter === 'B') {
+          setAqiImg(B);
+        } else if (letter === 'C') {
+          setAqiImg(C);
+        } else if (letter === 'D') {
+          setAqiImg(D);
+        } else if (letter === 'F') {
+          setAqiImg(F);
+        }
         localStorage.setItem('machine', result.data.machine);
         localStorage.setItem('date', result.data.date);
         localStorage.setItem('user', result.data.customer);
@@ -78,21 +90,6 @@ const Dashboard = () => {
     localStorage.clear();
     navigate('/login');
   };
-  useEffect(() => {
-    if (res.letter) {
-      setAqiImg(A);
-    } else if (res.letter === 'A') {
-      setAqiImg(A);
-    } else if (res.letter === 'B') {
-      setAqiImg(B);
-    } else if (res.letter === 'C') {
-      setAqiImg(C);
-    } else if (res.letter === 'D') {
-      setAqiImg(D);
-    } else if (res.letter-- - 'F') {
-      setAqiImg(F);
-    }
-  }, [res]);
 
   const backtoMachine = e => {
     removeAnimationScript();
@@ -183,7 +180,7 @@ const Dashboard = () => {
         <div id='outer'>
           <div id='three-container' style={{ display: 'flex', justifyContent: 'center' }}>
             <img id='img1' alt='AQI Level' src={aqiImg} style={{ display: 'none' }} />
-            {console.log(aqiImg)}
+
             <img id='img2' alt='Ad Display' src={adImg} style={{ display: 'none' }} />
             <input id='time' value={time} style={{ display: 'none' }} />
           </div>
