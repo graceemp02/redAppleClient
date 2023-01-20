@@ -29,10 +29,11 @@ function init() {
     slide.setImage(img);
   });
   setInterval(() => {
+    console.log('img 1');
     l1.load(document.getElementById('img1').src, function (img) {
       slide.setImage(img);
     });
-  }, 2000);
+  }, 5000);
 
   root.scene.add(slide);
 
@@ -43,10 +44,19 @@ function init() {
   l2.load(document.getElementById('img2').src, function (img) {
     slide2.setImage(img);
   });
+  setInterval(() => {
+    console.log('img 2');
+    l1.load(document.getElementById('img2').src, function (img) {
+      slide.setImage(img);
+    });
+  }, 5000);
 
   root.scene.add(slide2);
-  const time = +document.querySelector('#time').value;
-
+  let time = +document.querySelector('#time').value;
+  setInterval(() => {
+    console.log('Ad time');
+    time = +document.querySelector('#time').value;
+  }, 2000);
   var tl = new TimelineMax({ repeat: -1, repeatDelay: time, yoyo: true });
 
   tl.add(slide.transition(), 0);
