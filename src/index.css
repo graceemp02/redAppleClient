@@ -71,9 +71,6 @@ body {
 .colorD {
   color: #ef8625;
 }
-.colorE {
-  color: #ff0000;
-}
 .colorF {
   color: #ff0000;
 }
@@ -101,9 +98,8 @@ body {
 
 #outer {
   height: 50vh;
-  /* width: 100%; */
+
   aspect-ratio: 1/1;
-  /* margin: 0 auto; */
 }
 .loginField {
   margin-block: 5vh;
