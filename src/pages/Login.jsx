@@ -101,7 +101,7 @@ export default function Login() {
                 error={pwdError && true}
                 margin='normal'
                 required
-                sx={{ marginBlock: '4vh' }}
+                sx={{ marginBlock: '6vh' }}
                 fullWidth
                 name='password'
                 className='loginField'
