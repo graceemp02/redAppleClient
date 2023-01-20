@@ -23,7 +23,6 @@ export default function Machines() {
         cancelToken: source.token,
       })
       .then(result => {
-        console.log(result.data);
         setMachines(result.data);
       })
       .catch(error => console.log(error));

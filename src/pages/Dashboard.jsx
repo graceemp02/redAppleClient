@@ -14,6 +14,7 @@ const circleStyle = {
   width: '2.7vh',
   height: '2.7vh',
 };
+
 const Dashboard = () => {
   const [time, setTime] = useState(null);
   const [aqiImg, setAqiImg] = useState(A);
@@ -28,25 +29,15 @@ const Dashboard = () => {
   const id = localStorage.getItem('id');
   /////////////////
 
-  useEffect(() => {
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken.source();
-    axios
-      .get(`advertisment.php?cid=${id}&api=${api}`, { cancelToken: source.token })
+  const adData = async () => {
+    await axios
+      .get(`advertisment.php?cid=${id}&api=${api}`)
       .then(res => {
         res.data.path ? setAdImg(axios.defaults.baseURL + res.data.path) : setAdImg(Ad);
         setTime(res.data.time);
       })
       .catch(err => console.log(err));
-    const node = document.createElement('script');
-    node.id = 'aniScript';
-    node.src = 'js/script.js';
-    document.body.appendChild(node);
-    return () => {
-      source.cancel();
-    };
-  }, []);
-
+  };
   /////////////////
   const fetchDta = async () => {
     await axios
@@ -85,6 +76,10 @@ const Dashboard = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [api]);
+  useEffect(() => {
+    setInterval(() => {}, 1000);
+    adData();
+  }, []);
   const handleLogout = () => {
     removeAnimationScript();
     localStorage.clear();
@@ -108,6 +103,12 @@ const Dashboard = () => {
     padding: '.75em',
     maxWidth: '100vw',
   };
+  useEffect(() => {
+    const node = document.createElement('script');
+    node.id = 'aniScript';
+    node.src = 'js/script.js';
+    document.body.appendChild(node);
+  }, []);
   return (
     <div
       style={{
@@ -182,7 +183,9 @@ const Dashboard = () => {
             <img id='img1' alt='AQI Level' src={aqiImg} style={{ display: 'none' }} />
 
             <img id='img2' alt='Ad Display' src={adImg} style={{ display: 'none' }} />
-            <input id='time' value={time} style={{ display: 'none' }} />
+            <span id='time' style={{ display: 'none' }}>
+              {time}
+            </span>
           </div>
         </div>
         <div>

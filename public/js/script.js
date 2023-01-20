@@ -52,7 +52,8 @@ function init() {
   }, 30000);
 
   root.scene.add(slide2);
-  let time = +document.querySelector('#time').value;
+  let time = +document.querySelector('#time').innerHTML;
+
   setInterval(() => {
     console.log('Ad time');
     time = +document.querySelector('#time').value;
