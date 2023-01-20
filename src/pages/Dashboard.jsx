@@ -16,6 +16,7 @@ const circleStyle = {
 };
 const Dashboard = () => {
   const [time, setTime] = useState(null);
+  const [aqiImg, setAqiImg] = useState(A);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const navigate = useNavigate();
@@ -77,20 +78,22 @@ const Dashboard = () => {
     localStorage.clear();
     navigate('/login');
   };
-  let img = A;
-  if (res.letter) {
-    img = A;
-  } else if (res.letter === 'A') {
-    img = A;
-  } else if (res.letter === 'B') {
-    img = B;
-  } else if (res.letter === 'C') {
-    img = C;
-  } else if (res.letter === 'D') {
-    img = D;
-  } else if (res.letter-- - 'F') {
-    img = F;
-  }
+  useEffect(() => {
+    if (res.letter) {
+      setAdImg(A);
+    } else if (res.letter === 'A') {
+      setAdImg(A);
+    } else if (res.letter === 'B') {
+      setAdImg(B);
+    } else if (res.letter === 'C') {
+      setAdImg(C);
+    } else if (res.letter === 'D') {
+      setAdImg(D);
+    } else if (res.letter-- - 'F') {
+      setAdImg(F);
+    }
+  }, [res]);
+
   const backtoMachine = e => {
     removeAnimationScript();
     navigate('/');
@@ -179,8 +182,8 @@ const Dashboard = () => {
         </div>
         <div id='outer'>
           <div id='three-container' style={{ display: 'flex', justifyContent: 'center' }}>
-            <img id='img1' alt='AQI Level' src={img} style={{ display: 'none' }} />
-            {console.log(img)}
+            <img id='img1' alt='AQI Level' src={adImg} style={{ display: 'none' }} />
+            {console.log(adImg)}
             <img id='img2' alt='Ad Display' src={adImg} style={{ display: 'none' }} />
             <input id='time' value={time} style={{ display: 'none' }} />
           </div>
