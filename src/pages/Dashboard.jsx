@@ -88,7 +88,7 @@ const Dashboard = () => {
     img = C;
   } else if (res.letter === 'D') {
     img = D;
-  } else {
+  } else if (res.letter-- - 'F') {
     img = F;
   }
   const backtoMachine = e => {
@@ -180,6 +180,7 @@ const Dashboard = () => {
         <div id='outer'>
           <div id='three-container' style={{ display: 'flex', justifyContent: 'center' }}>
             <img id='img1' alt='AQI Level' src={img} style={{ display: 'none' }} />
+            {console.log(img)}
             <img id='img2' alt='Ad Display' src={adImg} style={{ display: 'none' }} />
             <input id='time' value={time} style={{ display: 'none' }} />
           </div>
