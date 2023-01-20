@@ -80,17 +80,17 @@ const Dashboard = () => {
   };
   useEffect(() => {
     if (res.letter) {
-      setAdImg(A);
+      setAqiImg(A);
     } else if (res.letter === 'A') {
-      setAdImg(A);
+      setAqiImg(A);
     } else if (res.letter === 'B') {
-      setAdImg(B);
+      setAqiImg(B);
     } else if (res.letter === 'C') {
-      setAdImg(C);
+      setAqiImg(C);
     } else if (res.letter === 'D') {
-      setAdImg(D);
+      setAqiImg(D);
     } else if (res.letter-- - 'F') {
-      setAdImg(F);
+      setAqiImg(F);
     }
   }, [res]);
 
@@ -182,8 +182,8 @@ const Dashboard = () => {
         </div>
         <div id='outer'>
           <div id='three-container' style={{ display: 'flex', justifyContent: 'center' }}>
-            <img id='img1' alt='AQI Level' src={adImg} style={{ display: 'none' }} />
-            {console.log(adImg)}
+            <img id='img1' alt='AQI Level' src={aqiImg} style={{ display: 'none' }} />
+            {console.log(aqiImg)}
             <img id='img2' alt='Ad Display' src={adImg} style={{ display: 'none' }} />
             <input id='time' value={time} style={{ display: 'none' }} />
           </div>
