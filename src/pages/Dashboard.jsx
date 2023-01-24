@@ -27,18 +27,7 @@ const Dashboard = () => {
 
   const api = localStorage.getItem('api');
   const id = localStorage.getItem('id');
-  /////////////////
 
-  const adData = async () => {
-    await axios
-      .get(`advertisment.php?cid=${id}&api=${api}`)
-      .then(res => {
-        res.data.path ? setAdImg(axios.defaults.baseURL + res.data.path) : setAdImg(Ad);
-        setTime(res.data.time);
-      })
-      .catch(err => console.log(err));
-  };
-  /////////////////
   const fetchDta = async () => {
     await axios
       .get('dashboard.php', {
@@ -77,9 +66,17 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [api]);
   useEffect(() => {
-    setInterval(() => {
-      adData();
-    }, 1000);
+    axios
+      .get(`advertisment.php?cid=${id}&api=${api}`)
+      .then(res => {
+        res.data.path ? setAdImg(axios.defaults.baseURL + res.data.path) : setAdImg(Ad);
+        setTime(res.data.time);
+      })
+      .catch(err => console.log(err));
+    const node = document.createElement('script');
+    node.id = 'aniScript';
+    node.src = 'js/script.js';
+    document.body.appendChild(node);
   }, []);
   const handleLogout = () => {
     removeAnimationScript();
@@ -104,12 +101,7 @@ const Dashboard = () => {
     padding: '.75em',
     maxWidth: '100vw',
   };
-  useEffect(() => {
-    const node = document.createElement('script');
-    node.id = 'aniScript';
-    node.src = 'js/script.js';
-    document.body.appendChild(node);
-  }, []);
+
   return (
     <div
       style={{

@@ -1,9 +1,9 @@
 /** @format */
-// visit line 45 to change time of delay
-// setInterval(init, 10000);
 
-// window.onload = init;
-window.onload = setTimeout(init, 2000);
+// use lable and break to stop execution of this file on leaving dashboard page
+// https://www.w3schools.com/js/js_break.asp
+// https://www.w3schools.com/js/tryit.asp?filename=tryjs_break_list
+window.onload = setTimeout(init, 1000);
 
 console.ward = function () {}; // what warnings?
 
@@ -43,21 +43,15 @@ function init() {
   l2.load(document.getElementById('img2').src, function (img) {
     slide2.setImage(img);
   });
-  setInterval(() => {
-    l1.load(document.getElementById('img2').src, function (img) {
-      console.log(`img 2: ${img}`);
-      slide.setImage(img);
-    });
-  }, 30000);
+  // setInterval(() => {
+  //   l1.load(document.getElementById('img2').src, function (img) {
+  //     slide.setImage(img);
+  //   });
+  // }, 30000);
 
   root.scene.add(slide2);
 
   let time = +document.querySelector('#time').defaultValue;
-  console.log(`first time is : ${time}`);
-  setInterval(() => {
-    time = +document.querySelector('#time').defaultValue;
-    console.log(`Ad time: ${time}`);
-  }, 1000);
 
   var tl = new TimelineMax({ repeat: -1, repeatDelay: time, yoyo: true });
 

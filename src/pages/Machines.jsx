@@ -17,17 +17,20 @@ export default function Machines() {
   useEffect(() => {
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
-    axios
-      .get('miniMachines.php', {
-        params: { cid: user },
-        cancelToken: source.token,
-      })
-      .then(result => {
-        setMachines(result.data);
-      })
-      .catch(error => console.log(error));
+    const interval = setInterval(() => {
+      axios
+        .get('miniMachines.php', {
+          params: { cid: user },
+          cancelToken: source.token,
+        })
+        .then(result => {
+          setMachines(result.data);
+        })
+        .catch(error => console.log(error));
+    }, 1000);
     return () => {
       source.cancel();
+      clearInterval(interval);
     };
   }, [user]);
 
