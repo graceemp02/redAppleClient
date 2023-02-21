@@ -43,8 +43,8 @@ export default function Login() {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    setEmailError(false);
-    setPwdError(false);
+    emailError && setEmailError(false);
+    pwdError && setPwdError(false);
     const formData = new FormData(e.currentTarget);
 
     await axios

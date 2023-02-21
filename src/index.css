@@ -95,15 +95,10 @@ body {
   flex-direction: column;
   align-items: center;
 }
-.css-d9c359-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {
-  background-color: #1976d2 !important;
-}
 
 #outer {
   height: 50vh;
-  /* width: 100%; */
   aspect-ratio: 1/1;
-  /* margin: 0 auto; */
 }
 .loginField {
   margin-block: 5vh;

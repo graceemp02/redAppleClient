@@ -38,7 +38,7 @@ const hdnCircle = {
 const shortButton = {
   width: '5vh',
   padding: ' .5vh 3vh',
-  fontSize: '1.2vh',
+  fontSize: '1.5vh',
 };
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   '& .MuiToggleButtonGroup-grouped': {
@@ -49,21 +49,23 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
       border: 0,
     },
     '&:not(:first-of-type)': {
-      // borderRadius: theme.shape.borderRadius,
       borderRadius: '15px',
       fontSize: '1vh',
       textTransform: 'capitalize',
     },
     '&:first-of-type': {
-      // borderRadius: theme.shape.borderRadius,
       borderRadius: '15px',
       fontSize: '1vh',
-
       textTransform: 'capitalize',
     },
   },
 }));
-
+const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
+  '&.Mui-selected': {
+    backgroundColor: '#1976d2cc !important',
+    padding: '0.4rem 0.6rem',
+  },
+}));
 const Control = () => {
   const navigate = useNavigate();
   const startRef = useRef();
@@ -155,12 +157,11 @@ const Control = () => {
     padding: '.75em',
   };
   const parant = {
-    padding: isMobile ? '1vh' : '1vh 5vh',
+    padding: isMobile ? '1vh' : '0 5vh',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: '100vh',
   };
   return (
     <div style={parant}>
@@ -250,20 +251,20 @@ const Control = () => {
                 }
               />
               <StyledToggleButtonGroup
-                sx={{ bgcolor: 'gray', height: '4.5vh', py: 2 }}
+                sx={{ bgcolor: 'gray', height: '4.5vh', alignItems: 'center' }}
                 color='primary'
                 value={alignment}
                 exclusive
                 onChange={handleChange}>
-                <ToggleButton onClick={() => handleRelayBtnClick('4')} value='1'>
+                <StyledToggleButton onClick={() => handleRelayBtnClick('4')} value='1'>
                   <Typography fontSize='2vh'>Auto</Typography>
-                </ToggleButton>
-                <ToggleButton onClick={() => handleRelayBtnClick('5')} value='0'>
+                </StyledToggleButton>
+                <StyledToggleButton onClick={() => handleRelayBtnClick('5')} value='0'>
                   <Typography fontSize='2vh'>OFF</Typography>
-                </ToggleButton>
-                <ToggleButton onClick={() => handleRelayBtnClick('6')} value='2'>
+                </StyledToggleButton>
+                <StyledToggleButton onClick={() => handleRelayBtnClick('6')} value='2'>
                   <Typography fontSize='2vh'>Program</Typography>
-                </ToggleButton>
+                </StyledToggleButton>
               </StyledToggleButtonGroup>
             </ListItem>
 
