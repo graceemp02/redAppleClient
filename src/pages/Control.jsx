@@ -81,11 +81,11 @@ const Control = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [alignment, setAlignment] = useState('0');
-  const api = localStorage.getItem('api');
+  const api = localStorage.getItem('client_api');
 
   const fetchDta = async () => {
     await axios
-      .get('system.php', {
+      .get('../system.php', {
         params: { api: api },
       })
       .then(result => {
@@ -96,7 +96,7 @@ const Control = () => {
   };
   const pushData = async id => {
     await axios
-      .get('system.php', {
+      .get('../system.php', {
         params: { api: api, relay: id },
       })
       .then(result => {
@@ -127,7 +127,7 @@ const Control = () => {
     formData.append('sot', sotRef.current.value === '' ? res.sot : sotRef.current.value);
 
     await axios
-      .post(`system.php?api=${api}`, formData)
+      .post(`../system.php?api=${api}`, formData)
       .then(() => {
         startRef.current.value = '';
         endRef.current.value = '';
@@ -410,17 +410,14 @@ const Control = () => {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Typography fontWeight={'bold'} fontSize='2.5vh'>
-              {/* {location.state.machine} */}
-              {localStorage.getItem('machine')}
+              {localStorage.getItem('client_machine')}
             </Typography>
             <Typography fontWeight={'bold'} mt={0.5} fontSize='2.5vh'>
-              {/* {location.state.user} */}
-              {localStorage.getItem('user')}
+              {localStorage.getItem('client_user')}
             </Typography>
             <Typography fontSize='2vh' mt={0.5} textAlign='center'>
-              {/* Next Inspection Date: {location.state.date} */}
               Next Inspection Date: {isMobile && <br />}
-              {localStorage.getItem('date')}
+              {localStorage.getItem('client_date')}
             </Typography>
           </div>
           <div

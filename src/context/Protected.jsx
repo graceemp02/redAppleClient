@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Protected = ({ Component }) => {
-  const user = localStorage.getItem('id');
+  const user = localStorage.getItem('client_id');
 
   const navigate = useNavigate();
   useEffect(() => {

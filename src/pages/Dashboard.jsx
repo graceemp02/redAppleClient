@@ -25,12 +25,12 @@ const Dashboard = () => {
   const [display, setDisplay] = useState('flex');
   const [adImg, setAdImg] = useState(Ad);
 
-  const api = localStorage.getItem('api');
-  const id = localStorage.getItem('id');
+  const api = localStorage.getItem('client_api');
+  const id = localStorage.getItem('client_id');
 
   const fetchDta = async () => {
     await axios
-      .get('dashboard.php', {
+      .get('../dashboard.php', {
         params: { api: api },
       })
       .then(result => {
@@ -47,9 +47,9 @@ const Dashboard = () => {
         } else if (letter === 'F') {
           setAqiImg(F);
         }
-        localStorage.setItem('machine', result.data.machine);
-        localStorage.setItem('date', result.data.date);
-        localStorage.setItem('user', result.data.customer);
+        localStorage.setItem('client_machine', result.data.machine);
+        localStorage.setItem('client_date', result.data.date);
+        localStorage.setItem('client_user', result.data.customer);
         setDisplay(result.data.humHdnStatus ? 'flex' : 'none');
       })
       .catch(error => console.log(error));
@@ -67,7 +67,7 @@ const Dashboard = () => {
   }, [api]);
   useEffect(() => {
     axios
-      .get(`advertisment.php?cid=${id}&api=${api}`)
+      .get(`../advertisment.php?cid=${id}&api=${api}`)
       .then(res => {
         res.data.path ? setAdImg(axios.defaults.baseURL + res.data.path) : setAdImg(Ad);
         setTime(res.data.time);

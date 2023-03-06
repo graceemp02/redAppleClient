@@ -13,7 +13,7 @@ import axios from 'axios';
 export default function Machines() {
   const [machines, setMachines] = useState([]);
   const navigate = useNavigate();
-  const user = localStorage.getItem('id');
+  const user = localStorage.getItem('client_id');
   useEffect(() => {
     const CancelToken = axios.CancelToken;
     const source = CancelToken.source();
@@ -39,7 +39,7 @@ export default function Machines() {
     navigate('/login');
   };
   const handleMachineClick = api => {
-    localStorage.setItem('api', api);
+    localStorage.setItem('client_api', api);
   };
   return (
     <Box sx={{ flexGrow: 1 }}>

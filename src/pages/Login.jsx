@@ -1,20 +1,12 @@
 /** @format */
 
-import {
-  Button,
-  CssBaseline,
-  Box,
-  TextField,
-  Typography,
-  Container,
-  useMediaQuery,
-} from '@mui/material';
+import { Button, CssBaseline, Box, TextField, Typography, Container, Grid } from '@mui/material';
 import Logo from '../assests/logo.png';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
+import { Link, useNavigate } from 'react-router-dom';
+import ResetPasswordDialog from '../components/reset/ResetPasswordDialog';
 
 function Copyright(props) {
   return (
@@ -28,15 +20,13 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
-  const user = localStorage.getItem('id');
-
+  const user = localStorage.getItem('client_id');
+  const [dialog, setdialog] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [pwdError, setPwdError] = useState(false);
 
   const navigate = useNavigate();
-  const themex = useTheme();
 
-  const isMobile = useMediaQuery(themex.breakpoints.down('sm'));
   useEffect(() => {
     if (user) navigate('/');
   }, []);
@@ -52,7 +42,7 @@ export default function Login() {
       .then(result => {
         const res = result.data['res'];
         if (res === 'true') {
-          localStorage.setItem('id', result.data.id);
+          localStorage.setItem('client_id', result.data.id);
           navigate('/');
         } else if (res === 'Password Incorrent') setPwdError(true);
         else {
@@ -61,7 +51,9 @@ export default function Login() {
       })
       .catch(err => console.log(err));
   };
-
+  const handleForgot = () => {
+    setdialog(true);
+  };
   return (
     <div className='loginContainer'>
       <ThemeProvider theme={theme}>
@@ -111,6 +103,16 @@ export default function Login() {
                 autoComplete='current-password'
                 helperText={pwdError && 'Password Incorrent'}
               />
+              <Grid container>
+                <Grid item xs>
+                  <span></span>
+                </Grid>
+                <Grid item>
+                  <Link onClick={handleForgot} sx={{ cursor: 'pointer' }} variant='body2'>
+                    Forgot password?
+                  </Link>
+                </Grid>
+              </Grid>
 
               <Button
                 type='submit'
@@ -124,6 +126,7 @@ export default function Login() {
           </Box>
           <Copyright sx={{ mb: 4, position: 'absolute', bottom: 0, left: 0, right: 0 }} />
         </Container>
+        {dialog && <ResetPasswordDialog />}
       </ThemeProvider>
     </div>
   );
