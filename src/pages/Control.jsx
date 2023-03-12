@@ -3,9 +3,7 @@
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Box';
 import CircleIcon from '@mui/icons-material/Circle';
-
 import { styled } from '@mui/material/styles';
-
 import {
   Button,
   ListItem,
@@ -20,7 +18,6 @@ import Relay from '../components/Relay';
 import { useEffect, useState } from 'react';
 import Logo from '../assests/logo.png';
 import { useTheme } from '@mui/material/styles';
-
 import axios from 'axios';
 import { useRef } from 'react';
 
@@ -77,23 +74,10 @@ const Control = () => {
   const pm25Ref = useRef();
   const co2Ref = useRef();
   const theme = useTheme();
-
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
   const [alignment, setAlignment] = useState('0');
   const api = localStorage.getItem('client_api');
 
-  const fetchDta = async () => {
-    await axios
-      .get('../system.php', {
-        params: { api: api },
-      })
-      .then(result => {
-        setRes(result.data);
-        setAlignment(result.data.aop);
-      })
-      .catch(error => console.log(error));
-  };
   const pushData = async id => {
     await axios
       .get('../system.php', {
@@ -106,11 +90,25 @@ const Control = () => {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetchDta();
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [api]);
+    let intervalId;
+    const fetchDta = async () => {
+      await axios
+        .get('../system.php', {
+          params: { api: api },
+        })
+        .then(result => {
+          const newRes = result.data;
+          if (JSON.stringify(newRes) !== JSON.stringify(res)) {
+            setRes(newRes);
+            setAlignment(newRes.aop);
+          }
+        })
+        .catch(error => console.log(error));
+    };
+    fetchDta();
+    intervalId = setInterval(fetchDta, 1000);
+    return () => clearInterval(intervalId);
+  }, [api, res]);
 
   const handleRelayBtnClick = id => {
     pushData(id);

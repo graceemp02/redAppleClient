@@ -120,7 +120,7 @@ export default function Login() {
                 fullWidth
                 variant='contained'
                 sx={{ my: '2vh' }}>
-                Sign In
+                Login
               </Button>
             </Box>
           </Box>

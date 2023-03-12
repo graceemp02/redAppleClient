@@ -15,24 +15,24 @@ export default function Machines() {
   const navigate = useNavigate();
   const user = localStorage.getItem('client_id');
   useEffect(() => {
-    const CancelToken = axios.CancelToken;
-    const source = CancelToken.source();
-    const interval = setInterval(() => {
-      axios
+    let intervalId;
+    const fetchData = async () => {
+      await axios
         .get('miniMachines.php', {
           params: { cid: user },
-          cancelToken: source.token,
         })
         .then(result => {
-          setMachines(result.data);
+          const newData = result.data;
+          if (JSON.stringify(newData) !== JSON.stringify(machines)) {
+            setMachines(newData);
+          }
         })
         .catch(error => console.log(error));
-    }, 1000);
-    return () => {
-      source.cancel();
-      clearInterval(interval);
     };
-  }, [user]);
+    fetchData();
+    intervalId = setInterval(fetchData, 1000);
+    return () => clearInterval(intervalId);
+  }, [user, machines]);
 
   const handleLogout = () => {
     localStorage.clear();

@@ -28,43 +28,45 @@ const Dashboard = () => {
   const api = localStorage.getItem('client_api');
   const id = localStorage.getItem('client_id');
 
-  const fetchDta = async () => {
-    await axios
-      .get('../dashboard.php', {
-        params: { api: api },
-      })
-      .then(result => {
-        setRes(result.data);
-        let letter = result.data.letter;
-        if (letter === 'A') {
-          setAqiImg(A);
-        } else if (letter === 'B') {
-          setAqiImg(B);
-        } else if (letter === 'C') {
-          setAqiImg(C);
-        } else if (letter === 'D') {
-          setAqiImg(D);
-        } else if (letter === 'F') {
-          setAqiImg(F);
-        }
-        localStorage.setItem('client_machine', result.data.machine);
-        localStorage.setItem('client_date', result.data.date);
-        localStorage.setItem('client_user', result.data.customer);
-        setDisplay(result.data.humHdnStatus ? 'flex' : 'none');
-      })
-      .catch(error => console.log(error));
-  };
-
   const removeAnimationScript = () => {
     const node = document.getElementById('aniScript');
     node.remove();
   };
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetchDta();
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [api]);
+    let intervalId;
+    const fetchDta = async () => {
+      await axios
+        .get('../dashboard.php', {
+          params: { api: api },
+        })
+        .then(result => {
+          const newData = result.data;
+          if (JSON.stringify(newData) !== JSON.stringify(res)) {
+            setRes(newData);
+            let letter = newData.letter;
+            if (letter === 'A') {
+              setAqiImg(A);
+            } else if (letter === 'B') {
+              setAqiImg(B);
+            } else if (letter === 'C') {
+              setAqiImg(C);
+            } else if (letter === 'D') {
+              setAqiImg(D);
+            } else if (letter === 'F') {
+              setAqiImg(F);
+            }
+            localStorage.setItem('client_machine', newData.machine);
+            localStorage.setItem('client_date', newData.date);
+            localStorage.setItem('client_user', newData.customer);
+            setDisplay(newData.humHdnStatus ? 'flex' : 'none');
+          }
+        })
+        .catch(error => console.log(error));
+    };
+    fetchDta();
+    intervalId = setInterval(fetchDta, 1000);
+    return () => clearInterval(intervalId);
+  }, [api, res]);
   useEffect(() => {
     axios
       .get(`../advertisment.php?cid=${id}&api=${api}`)
