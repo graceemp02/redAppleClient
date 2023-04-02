@@ -71,7 +71,7 @@ const Dashboard = () => {
     axios
       .get(`../advertisment.php?cid=${id}&api=${api}`)
       .then(res => {
-        res.data.path ? setAdImg(axios.defaults.baseURL + res.data.path) : setAdImg(Ad);
+        res.data.path ? setAdImg(axios.defaults.baseURL + '/' + res.data.path) : setAdImg(Ad);
         setTime(res.data.time);
       })
       .catch(err => console.log(err));
@@ -97,7 +97,6 @@ const Dashboard = () => {
     display: 'flex',
     borderRadius: '1vh',
     backgroundColor: 'white',
-    // overflow: 'hidden',
     flexDirection: 'column',
     justifyContent: 'space-between',
     padding: '.75em',
